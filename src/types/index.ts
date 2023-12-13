@@ -4,29 +4,25 @@ export type User = {
     email:      string;
     password:   string;
     role:       string;
-    membership: string;
+    membership: number;
     balance:    number;
     image:      string;
-    bookmarks:  Event[];
-    events:     Event[];
 }
 
 export type Event = {
     id:          number;
     name:        string;
-    startTime:   string;
-    duration:    string;
-    category:    string;
+    date:   string;
+    time:   string;
     price:       number;
     image:       string;
     description: string;
     capacity:    Capacity;
-    merchandises?: Merchandise[];
 }
 
 export type Capacity = {
-    max:       number;
-    remaining: number;
+    total:       number;
+    booked: number;
 }
 
 export type Merchandise = {
@@ -36,15 +32,22 @@ export type Merchandise = {
     image:       string;
     name:        string;
     description: string;
-    event:       Event[];
+    eventId:     number;
 }
 
 export type Purchase = {
     id:            number;
-    userID:        number;
-    eventDate:     string;
+    userId:        number;
+    eventId:     number;
     purchaseDate:  string;
     merchandises:  Merchandise[];
-    paymentStatus: boolean;
+    isPaid: boolean;
     paymentTotal:  number;
+}
+
+export type Bookmark = {
+    id: number;
+    userId: number;
+    eventId: number;
+    event?: Event;
 }
