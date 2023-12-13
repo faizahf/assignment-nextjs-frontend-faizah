@@ -21,6 +21,7 @@ export type Event = {
     image:       string;
     description: string;
     capacity:    Capacity;
+    merchandises?: Merchandise[];
 }
 
 export type Capacity = {
