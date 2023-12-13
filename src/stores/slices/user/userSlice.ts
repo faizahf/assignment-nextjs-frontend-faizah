@@ -14,11 +14,9 @@ const initialState: UserState = {
     email: "",
     password: "",
     role: "",
-    membership: "",
+    membership: 0,
     balance: 0,
     image: "",
-    bookmarks: [],
-    events: []
   },
 };
 
