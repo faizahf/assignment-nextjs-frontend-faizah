@@ -1,7 +1,10 @@
+import Layout from '@/components/Layout/Layout';
+import { store } from '@/stores/store';
 import '@/styles/globals.css'
 import type { AppProps } from 'next/app'
 
 import { Source_Sans_3 } from "next/font/google";
+import { Provider } from 'react-redux';
 
 const source_sans = Source_Sans_3({
     weight: ["400", "500", "600"],
@@ -9,5 +12,11 @@ const source_sans = Source_Sans_3({
   });
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component className={source_sans.className} {...pageProps} />
+  return (
+  <Provider store={store}>
+    <Layout>
+      <Component className={source_sans.className} {...pageProps} />
+    </Layout>
+  </Provider>
+  )
 }

@@ -54,11 +54,9 @@ function Signup() {
         email: data.email,
         password: data.password,
         role: "user",
-        membership: "silver",
+        membership: 1,
         balance: 0,
         image: "",
-        bookmarks: [],
-        events: []
     }),
     });
     router.push("/auth/login");
@@ -142,8 +140,6 @@ function Signup() {
                     placeholder="Your full name here.."
                     className="block form-input border rounded w-full p-2.5 placeholder-secondary-text"
                     {...register("name", registerOptions.name)}
-                    // value={data.fullname}
-                    // onChange={changeHandler}
                   />
                   <small className="text-red-700">
                     {errors?.name && errors.name.message}
@@ -158,8 +154,6 @@ function Signup() {
                     placeholder="Your email here.."
                     className="block form-input border rounded w-full p-2.5 placeholder-secondary-text"
                     {...register("email", registerOptions.email)}
-                    // value={data.email}
-                    // onChange={changeHandler}
                   />
                   <small className="text-red-700">
                     {errors?.email && errors.email.message}
@@ -174,8 +168,6 @@ function Signup() {
                     placeholder="Your password here.."
                     className="block form-input border rounded w-full p-2.5 placeholder-secondary-text"
                     {...register("password", registerOptions.password)}
-                    // value={data.password}
-                    // onChange={changeHandler}
                   />
                   <small className="text-red-700">
                     {errors?.password && errors.password.message}
@@ -193,8 +185,6 @@ function Signup() {
                       "confirmPassword",
                       registerOptions.confirmPassword
                     )}
-                    // value={data.confirmPassword}
-                    // onChange={changeHandler}
                   />
                   <small className="text-red-700">
                     {errors?.confirmPassword && errors.confirmPassword.message}

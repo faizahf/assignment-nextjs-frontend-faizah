@@ -1,17 +1,17 @@
 import useFetch from "@/hooks/useFetch";
-import { Bookmark, Event, User } from "@/types";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { useSelector } from "react-redux";
 import { RootState } from "@/stores/store";
+import { Bookmark } from "@/types";
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { FaRegBookmark } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
 import Button from "@/components/Button/Button";
 
-export default function Home() {
-  const loggedUser = useSelector((state: RootState) => state.user.data);
+function BookmarksPage() {
   const router = useRouter();
-  const { data: events, fetchData: fetchEventList } = useFetch<Event[]>();
+  const loggedUser = useSelector((state: RootState) => state.user.data);
+  const [isBookmarked, setIsBookmarked] = useState(false);
 
   const { fetchData: postBookmark } = useFetch<Bookmark>();
   const {
@@ -25,15 +25,16 @@ export default function Home() {
   const { fetchData: deleteBookmarkedEventByUserAndEvent } =
     useFetch<Bookmark[]>();
 
-  const [isBookmarked, setIsBookmarked] = useState(false);
-
   useEffect(() => {
-    fetchEventList("events", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    fetchBookmarkedEventsByUser(
+      `bookmarks?userId=${loggedUser.id}&_expand=event`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   }, []);
 
   const formatCurrency = (nominal: number): string => {
@@ -42,7 +43,8 @@ export default function Home() {
       currency: "IDR",
     }).format(nominal);
   };
-  const checkBookmarkedEvent = (currentEventId: number): boolean => {
+
+  const checkBookmarkedEvent = (currentEventId: number) => {
     fetchBookmarkedEventByUserAndEvent(
       `bookmarks?userId=${loggedUser.id}&eventId=${currentEventId}`,
       {
@@ -53,8 +55,7 @@ export default function Home() {
       }
     );
 
-    //   console.log('bookmarked events:', bookmarkedEvents);
-    console.log("ada isinya ga:", bookmarkedEventByUserAndEvent);
+    console.log("ada isinya ga:", bookmarkedEventByUserAndEvent?.length !== 0);
     return bookmarkedEventByUserAndEvent?.length !== 0;
   };
 
@@ -69,7 +70,6 @@ export default function Home() {
         eventId: currentEventId,
       }),
     });
-    setIsBookmarked(true);
   };
 
   const removeBookmark = (currentEventId: number) => {
@@ -82,7 +82,6 @@ export default function Home() {
         },
       }
     );
-    setIsBookmarked(false);
   };
 
   const handleBookmark = (eventId: number) => {
@@ -97,31 +96,36 @@ export default function Home() {
 
   return (
     <>
-      <h1 className="text-[36px] text-primary font-semibold">Workshops</h1>
+      <h1 className="text-[36px] text-primary font-semibold">
+        Bookmarked Events
+      </h1>
       <div className="grid grid-cols-4 gap-5 my-5">
-        {events?.map((event) => (
-          <div key={event.id} className="card bg-base-100 shadow-xl">
+        {bookmarkedEventsByUser?.map((data) => (
+          <div
+            key={data.event?.id}
+            className="card bg-base-100 shadow-xl"
+          >
             <figure>
-              <img src={`${event.image}`} alt={`${event.name}`} />
+              <img src={`${data.event?.image}`} alt={`${data.event?.name}`} />
             </figure>
             <div className="card-body">
               <div className="gap-2 w-full h-[39px] items-center flex justify-between">
-                <h2 className="card-title">{event.name}</h2>
+                <h2 className="card-title">{data.event?.name}</h2>
                 {isBookmarked ? (
                   <FaBookmark size={24} />
                 ) : (
                   <FaRegBookmark size={24} />
                 )}
               </div>
-              <p>{event.date}, {event.time}</p>
+              <p>{data.event?.date}, {data.event?.time}</p>
               <p className="text-primary font-semibold text-2xl">
-                {formatCurrency(event.price)}
+                {formatCurrency(Number(data.event?.price))}
               </p>
               <div className="card-actions justify-end">
                 <Button
                   styles="btn-primary bg-primary text-white"
                   value={"Details"}
-                  funcOnClick={() => router.push(`/events/${event.id}`)}
+                  funcOnClick={() => router.push(`/events/${data.event?.id}`)}
                 ></Button>
               </div>
             </div>
@@ -131,3 +135,5 @@ export default function Home() {
     </>
   );
 }
+
+export default BookmarksPage;
