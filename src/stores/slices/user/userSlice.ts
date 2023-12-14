@@ -4,7 +4,7 @@ import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
 export interface UserState {
-  data: User;
+  data: User | null;
 }
 
 const initialState: UserState = {
@@ -27,10 +27,13 @@ const userSlice = createSlice({
     saveUser: (state, action: PayloadAction<User>) => {
       state.data = action.payload;
     },
+    removeUser: (state) => {
+      state.data = null;
+    },
   },
 });
 
-export const { saveUser } = userSlice.actions;
+export const { saveUser, removeUser } = userSlice.actions;
 
 const persistConfig = {
   key: 'root',

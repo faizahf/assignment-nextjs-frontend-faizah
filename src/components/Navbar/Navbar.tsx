@@ -1,19 +1,24 @@
+import { removeUser } from '@/stores/slices/user/userSlice';
 import { removeAuthToken } from '@/utils/cookie';
 import Link from 'next/link'
 import React from 'react'
+import { useDispatch } from 'react-redux';
 
 function Navbar() {
+    const dispatch = useDispatch();
+
     const handleLogout = () => {
         removeAuthToken('token');
         removeAuthToken('role');
+        dispatch(removeUser());
     }
     
   return (
-    <nav className='px-60 py-10'>
+    <nav className='px-60 py-5 bg-navy-blue'>
         <div className='flex justify-between items-center'>
             <h1 className="text-primary text-[40px] font-semibold">SkillUp</h1>
         <div>
-            <ul className='flex text-[20px] gap-10'>
+            <ul className='flex text-[16px] gap-10 text-white'>
                 <li><Link href="/">Home</Link></li>
                 <li><Link href="/bookmarks">Bookmarks</Link></li>
                 <li><Link href="/purchase-history">Purchase History</Link></li>

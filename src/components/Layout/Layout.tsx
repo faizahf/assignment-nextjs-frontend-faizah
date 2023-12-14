@@ -25,7 +25,7 @@ function Layout({ children }: LayoutProps) {
   return (
     <div>
       <Navbar />
-      <main className="flex min-h-screen flex-col px-60">{children}</main>
+      <main className="flex min-h-screen flex-col px-60 mt-10">{children}</main>
       <Footer />
     </div>
   );

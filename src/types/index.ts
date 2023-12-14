@@ -19,6 +19,7 @@ export type Event = {
   description: string;
   location: string;
   capacity: Capacity;
+  merchandises?: Merchandise[];
 };
 
 export type Capacity = {
