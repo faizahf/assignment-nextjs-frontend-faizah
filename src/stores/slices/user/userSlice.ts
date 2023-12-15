@@ -30,10 +30,15 @@ const userSlice = createSlice({
     removeUser: (state) => {
       state.data = null;
     },
+    updateBalance: (state, action: PayloadAction<number>) => {
+      if (state.data) {
+        state.data.balance = action.payload;
+      }
+    }
   },
 });
 
-export const { saveUser, removeUser } = userSlice.actions;
+export const { saveUser, removeUser, updateBalance } = userSlice.actions;
 
 const persistConfig = {
   key: 'root',
