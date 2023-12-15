@@ -7,6 +7,7 @@ import { RootState } from "@/stores/store";
 import { FaRegBookmark } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
 import Button from "@/components/Button/Button";
+import { formatRupiah } from "@/utils";
 
 export default function Home() {
   const loggedUser = useSelector((state: RootState) => state.user.data);
@@ -18,14 +19,16 @@ export default function Home() {
     data: bookmarkedEventsByUser,
     fetchData: fetchBookmarkedEventsByUser,
   } = useFetch<Bookmark[]>();
+
   const {
     data: bookmarkedEventByUserAndEvent,
     fetchData: fetchBookmarkedEventByUserAndEvent,
   } = useFetch<Bookmark[]>();
+
   const { fetchData: deleteBookmarkedEventByUserAndEvent } =
     useFetch<Bookmark[]>();
 
-  const [isBookmarked, setIsBookmarked] = useState(false);
+  const [checkIsBookmarked, setCheckIsBookmarked] = useState(false);
 
   useEffect(() => {
     fetchEventList("events", {
@@ -36,12 +39,6 @@ export default function Home() {
     });
   }, []);
 
-  const formatCurrency = (nominal: number): string => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(nominal);
-  };
   const checkBookmarkedEvent = (currentEventId: number): boolean => {
     fetchBookmarkedEventByUserAndEvent(
       `bookmarks?userId=${loggedUser.id}&eventId=${currentEventId}`,
@@ -55,6 +52,8 @@ export default function Home() {
 
     //   console.log('bookmarked events:', bookmarkedEvents);
     console.log("ada isinya ga:", bookmarkedEventByUserAndEvent);
+    console.log(bookmarkedEventByUserAndEvent?.length !== 0);
+    console.log(bookmarkedEventByUserAndEvent);
     return bookmarkedEventByUserAndEvent?.length !== 0;
   };
 
@@ -69,7 +68,7 @@ export default function Home() {
         eventId: currentEventId,
       }),
     });
-    setIsBookmarked(true);
+    setCheckIsBookmarked(true);
   };
 
   const removeBookmark = (currentEventId: number) => {
@@ -82,12 +81,13 @@ export default function Home() {
         },
       }
     );
-    setIsBookmarked(false);
+    setCheckIsBookmarked(false);
   };
 
   const handleBookmark = (eventId: number) => {
     const isBookmarked = checkBookmarkedEvent(eventId);
 
+    console.log('handleBookmark', isBookmarked);
     if (isBookmarked) {
       removeBookmark(eventId);
     } else {
@@ -107,15 +107,15 @@ export default function Home() {
             <div className="card-body">
               <div className="gap-2 w-full h-[39px] items-center flex justify-between">
                 <h2 className="card-title">{event.name}</h2>
-                {isBookmarked ? (
-                  <FaBookmark size={24} />
+                {checkIsBookmarked ? (
+                  <FaBookmark size={24} onClick={() => handleBookmark(event.id)} />
                 ) : (
-                  <FaRegBookmark size={24} />
+                  <FaRegBookmark size={24} onClick={() => handleBookmark(event.id)} />
                 )}
               </div>
               <p>{event.date}, {event.time}</p>
               <p className="text-primary font-semibold text-2xl">
-                {formatCurrency(event.price)}
+                {formatRupiah(event.price)}
               </p>
               <div className="card-actions justify-end">
                 <Button

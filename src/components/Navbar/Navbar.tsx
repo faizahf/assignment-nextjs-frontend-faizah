@@ -16,7 +16,7 @@ function Navbar() {
   return (
     <nav className='px-60 py-5 bg-navy-blue'>
         <div className='flex justify-between items-center'>
-            <h1 className="text-primary text-[40px] font-semibold">SkillUp</h1>
+            <h1 className="text-primary text-[40px] font-bold">SkillUp</h1>
         <div>
             <ul className='flex text-[16px] gap-10 text-white'>
                 <li><Link href="/">Home</Link></li>

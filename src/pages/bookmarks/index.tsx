@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { FaRegBookmark } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
 import Button from "@/components/Button/Button";
+import { formatRupiah } from "@/utils";
 
 function BookmarksPage() {
   const router = useRouter();
@@ -36,13 +37,6 @@ function BookmarksPage() {
       }
     );
   }, []);
-
-  const formatCurrency = (nominal: number): string => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(nominal);
-  };
 
   const checkBookmarkedEvent = (currentEventId: number) => {
     fetchBookmarkedEventByUserAndEvent(
@@ -119,7 +113,7 @@ function BookmarksPage() {
               </div>
               <p>{data.event?.date}, {data.event?.time}</p>
               <p className="text-primary font-semibold text-2xl">
-                {formatCurrency(Number(data.event?.price))}
+                {formatRupiah(Number(data.event?.price))}
               </p>
               <div className="card-actions justify-end">
                 <Button
