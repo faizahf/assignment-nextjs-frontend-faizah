@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "@/components/Navbar/Navbar";
 import Modal from "@/components/Modal/Modal";
 import Button from "@/components/Button/Button";
+import { formatRupiah } from "@/utils";
 
 function EventDetail() {
   const router = useRouter();
@@ -29,13 +30,6 @@ function EventDetail() {
     });
   }, [id]);
 
-  const formatCurrency = (nominal: number): string => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(nominal);
-  };
-
   return (
     <>
       <div className="w-full">
@@ -59,13 +53,13 @@ function EventDetail() {
                 </div>
                 <div className="flex justify-between">
                   <h6>Price</h6>
-                  <h6>{formatCurrency(Number(event.price))}</h6>
+                  <h6>{formatRupiah(Number(event.price))}</h6>
                 </div>
               </div>
               <div className="bg-[#F3EFFF] rounded-lg shadow-md my-2 px-10 py-5">
                 <div className="flex justify-between">
                   <h2>Total Payment</h2>
-                  <h2>{formatCurrency(Number(event.price))}</h2>
+                  <h2>{formatRupiah(Number(event.price))}</h2>
                 </div>
               </div>
               <div className="flex justify-end">

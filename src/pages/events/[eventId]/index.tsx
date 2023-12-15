@@ -1,6 +1,7 @@
 import Button from "@/components/Button/Button";
 import useFetch from "@/hooks/useFetch";
 import { Event } from "@/types";
+import { formatRupiah } from "@/utils";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import React, { useEffect } from "react";
@@ -20,13 +21,6 @@ function EventDetail() {
       },
     });
   }, [id]);
-
-  const formatCurrency = (nominal: number): string => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(nominal);
-  };
 
   return (
     <>
@@ -49,7 +43,7 @@ function EventDetail() {
                 </h1>
                 <div className="card w-96 bg-white translate-x-1/3">
                   <div className="card-body items-center text-center">
-                    <h2 className="card-title">{formatCurrency(Number(event.price))}</h2>
+                    <h2 className="card-title">{formatRupiah(Number(event.price))}</h2>
                     <p>{event.date}, {event.time}</p>
                     <div className="card-actions justify-end">
                       <button className="btn">Bookmark</button>

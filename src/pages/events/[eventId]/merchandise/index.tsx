@@ -4,6 +4,7 @@ import useFetch from "@/hooks/useFetch";
 import { addMerchandise, decreaseQuantity, removeMerchandise } from "@/stores/slices/merchandise/merchandiseSlice";
 import { RootState } from "@/stores/store";
 import { Event, Merchandise } from "@/types";
+import { formatRupiah } from "@/utils";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -13,7 +14,7 @@ function MerchandisePage() {
   const id = router.query.eventId;
   const { data: event, fetchData: fetchEventMerchandises } = useFetch<Event>();
   const dispatch = useDispatch();
-  const merchandises = useSelector((state: RootState) => state.merchandise);
+  const merchandises = useSelector((state: RootState) => state.merchandise.merchs);
 
   useEffect(() => {
     fetchEventMerchandises(`events/${id}?_embed=merchandises`, {
@@ -24,36 +25,36 @@ function MerchandisePage() {
     });
   }, [id, merchandises]);
 
-  const formatCurrency = (nominal: number): string => {
-    return new Intl.NumberFormat("id-ID", {
-      style: "currency",
-      currency: "IDR",
-    }).format(nominal);
-  };
-
   const handleAddMerch = (merch: Merchandise) => {
     dispatch(addMerchandise({
-      id: merch.id,
-      stock: merch.stock,
-      price: merch.price,
-      image: merch.image,
-      name: merch.name,
-      description: merch.description,
-      eventId: merch.eventId,
-      qty: 1,
-      }));
+      merch: {
+        id: merch.id,
+        stock: merch.stock,
+        price: merch.price,
+        image: merch.image,
+        name: merch.name,
+        description: merch.description,
+        eventId: merch.eventId,
+        qty: 1,
+      }
+    }));
   }
+
+  useEffect(() => {
+
+    console.log('merchs:', merchandises);
+  }, [merchandises])
 
   const handleDecreaseQty = (merchId: number) => {
     if (getQtyMerch(merchId) > 1) {
-      dispatch(decreaseQuantity(merchandises.findIndex(merch => merch.id === merchId)));
+      dispatch(decreaseQuantity(merchandises.findIndex(data => data.merch.id === merchId)));
     } else {
       dispatch(removeMerchandise(merchId));
     }
   }
 
   const getQtyMerch = (merchId: number): number | undefined => {
-    const qty = merchandises.find(merch => {return merch.id === merchId})?.qty
+    const qty = merchandises.find(data => {return data.merch.id === merchId})?.merch.qty
     if (qty !== undefined) {
       return qty;
     }
@@ -62,8 +63,8 @@ function MerchandisePage() {
 
   const getTotalPayment = (): number => {
     let totalPayment = 0;
-    for (const merch of merchandises) {
-      totalPayment += (merch.qty * merch.price);
+    for (const data of merchandises) {
+      totalPayment += (data.merch.qty * data.merch.price);
     }
     return totalPayment;
   }
@@ -86,10 +87,10 @@ function MerchandisePage() {
                 <h6>{merchandise.description}</h6>
                 <div className="flex justify-between">
                   <h6 className="text-primary font-semibold">
-                    {formatCurrency(merchandise.price)}
+                    {formatRupiah(merchandise.price)}
                   </h6>
                   <div className="flex gap-2">
-                    {merchandises.find(merch => merch.id === merchandise.id)
+                    {merchandises.find(data => data.merch.id === merchandise.id)
                     &&
                       <>
                         <button
@@ -109,7 +110,7 @@ function MerchandisePage() {
                     >
                       +
                     </button>
-                    <h1>{formatCurrency(merchandise.price * getQtyMerch(merchandise.id))}</h1>
+                    <h1>{formatRupiah(merchandise.price * getQtyMerch(merchandise.id))}</h1>
                   </div>
                 </div>
               </div>
@@ -118,7 +119,7 @@ function MerchandisePage() {
         <div className="bg-[#F3EFFF] rounded-lg shadow-md my-2 px-10 py-5">
           <div className="flex justify-between">
             <h2>Total Payment</h2>
-            <h2>{formatCurrency(getTotalPayment())}</h2>
+            <h2>{formatRupiah(getTotalPayment())}</h2>
           </div>
         </div>
         <div className="flex justify-end">
