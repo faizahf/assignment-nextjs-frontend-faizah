@@ -1,17 +1,5 @@
+import { MerchandiseItem } from "@/types";
 import { createSlice, current, PayloadAction } from "@reduxjs/toolkit";
-
-export interface MerchandiseItem {
-  merch: {
-    id: number;
-    stock: number;
-    price: number;
-    image: string;
-    name: string;
-    description: string;
-    eventId: number;
-    qty: number;
-  };
-}
 
 export interface MerchandiseState {
   merchs: MerchandiseItem[];

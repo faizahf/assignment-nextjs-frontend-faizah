@@ -1,3 +1,5 @@
+import { MerchandiseItem, MerchandiseState } from "@/stores/slices/merchandise/merchandiseSlice";
+
 export type User = {
   id: number;
   name: string;
@@ -37,14 +39,28 @@ export type Merchandise = {
   eventId: number;
 };
 
+export interface MerchandiseItem {
+  merch: {
+    id: number;
+    stock: number;
+    price: number;
+    image: string;
+    name: string;
+    description: string;
+    eventId: number;
+    qty: number;
+  };
+}
+
 export type Purchase = {
   id: number;
   userId: number;
   eventId: number;
   purchaseDate: string;
-  merchandises: Merchandise[];
+  merchandises: MerchandiseItem[];
   isPaid: boolean;
   paymentTotal: number;
+  event?: Event;
 };
 
 export type Bookmark = {
