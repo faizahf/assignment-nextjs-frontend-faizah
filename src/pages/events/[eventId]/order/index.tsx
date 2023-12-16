@@ -39,7 +39,7 @@ function EventDetail() {
         {event && (
           <>
             <div className="w-full">
-              <div className="bg-[#F3EFFF] rounded-lg shadow-md px-10 my-2 py-5">
+              <div className="bg-white rounded-lg shadow-md px-10 my-2 py-5">
                 <div className="font-semibold">
                   <h6>{event.name}</h6>
                 </div>
@@ -56,7 +56,7 @@ function EventDetail() {
                   <h6>{formatRupiah(Number(event.price))}</h6>
                 </div>
               </div>
-              <div className="bg-[#F3EFFF] rounded-lg shadow-md my-2 px-10 py-5">
+              <div className="bg-white rounded-lg shadow-md my-2 px-10 py-5">
                 <div className="flex justify-between">
                   <h2>Total Payment</h2>
                   <h2>{formatRupiah(Number(event.price))}</h2>

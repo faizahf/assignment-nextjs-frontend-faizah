@@ -76,7 +76,7 @@ function MerchandisePage() {
         {event?.merchandises &&
           event.merchandises.map((merchandise: any) => (
             <div
-              className="w-full bg-[#F3EFFF] rounded-lg shadow-md px-10 my-2 py-5 flex gap-5"
+              className="w-full bg-white rounded-lg shadow-md px-10 my-2 py-5 flex gap-5"
               key={merchandise.id}
             >
               <div className="w-[100px]">
@@ -116,7 +116,7 @@ function MerchandisePage() {
               </div>
             </div>
           ))}
-        <div className="bg-[#F3EFFF] rounded-lg shadow-md my-2 px-10 py-5">
+        <div className="bg-white rounded-lg shadow-md my-2 px-10 py-5">
           <div className="flex justify-between">
             <h2>Total Payment</h2>
             <h2>{formatRupiah(getTotalPayment())}</h2>
