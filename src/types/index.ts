@@ -37,6 +37,7 @@ export type Merchandise = {
   name: string;
   description: string;
   eventId: number;
+  event? : Event;
 };
 
 export interface MerchandiseItem {
