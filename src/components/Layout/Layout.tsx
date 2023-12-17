@@ -16,9 +16,11 @@ function Layout({ children }: LayoutProps) {
   }
   if (router.pathname.startsWith("/admin")) {
     return (
-      <div>
+      <div className="flex">
         <Sidebar />
-        {children}
+        <div className="min-h-screen flex-1 p-7 bg-secondary">
+          {children}
+        </div>
       </div>
     );
   }

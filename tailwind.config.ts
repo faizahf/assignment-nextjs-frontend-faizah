@@ -15,6 +15,9 @@ const config: Config = {
         'navy-blue': '#10107B',
         'grey': '#7E7E7E',
       },
+      fontFamily: {
+        poppins: ['var(--font-poppins)'],
+      },
     },
   },
   daisyui: {
