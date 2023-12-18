@@ -35,7 +35,7 @@ function EventListPage() {
 
   return (
     <>
-      <div className="flex justify-between items-center">
+      <div className="flex gap-5 justify-between items-center overflow-x-auto">
         <h1 className="text-2xl font-semibold">Events</h1>
         <div className="flex gap-3">
           <Button
@@ -58,47 +58,47 @@ function EventListPage() {
           </div>
         </div>
       </div>
-      <div className="overflow-x-auto my-5 rounded-lg">
+    <div className="overflow-x-auto my-5 rounded-lg">
         <table className="table bg-white">
-          <thead>
+        <thead>
             <tr className="bg-primary text-white">
-              <th>ID</th>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Date</th>
-              <th>Time</th>
-              <th>Price</th>
-              <th>Location</th>
-              <th className="text-center">Total Capacity</th>
-              <th className="text-center">Remaining Capacity</th>
-              <th className="text-center">Action</th>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Category</th>
+            <th>Date</th>
+            <th>Time</th>
+            <th>Price</th>
+            <th>Location</th>
+            <th className="text-center">Total Capacity</th>
+            <th className="text-center">Remaining Capacity</th>
+            <th className="text-center">Action</th>
             </tr>
-          </thead>
-          <tbody>
+        </thead>
+        <tbody>
             {eventList &&
-              eventList.map((event) => (
+            eventList.map((event) => (
                 <tr key={event.id} className="text-medium hover:bg-indigo-100">
-                  <td>{event.id}</td>
-                  <td>{event.name}</td>
-                  <td>{getCategoryName(event.category)}</td>
-                  <td>{event.date}</td>
-                  <td>{event.startTime}</td>
-                  <td>{formatRupiah(event.price)}</td>
-                  <td>{event.location}</td>
-                  <td className="text-center">{event.capacity.total}</td>
-                  <td className="text-center">
+                <td>{event.id}</td>
+                <td>{event.name}</td>
+                <td>{getCategoryName(event.category)}</td>
+                <td>{event.date}</td>
+                <td>{event.startTime}</td>
+                <td>{formatRupiah(event.price)}</td>
+                <td>{event.location}</td>
+                <td className="text-center">{event.capacity.total}</td>
+                <td className="text-center">
                     {event.capacity.total - event.capacity.booked}
-                  </td>
-                  <td className="flex gap-2 justify-center">
+                </td>
+                <td className="flex gap-2 justify-center">
                     <button className="bg-primary p-2 rounded" onClick={() => router.push(`events/${event.id}`)}><BiSolidDetail color="white" size="20"/></button>
                     <button className="bg-yellow-500 p-2 rounded" onClick={() => router.push(`events/${event.id}/edit`)}><FaEdit color="white" size="20"/></button>
                     <button className="bg-red-600 p-2 rounded"><MdDelete color="white" size="20"/></button>
                 </td>
                 </tr>
-              ))}
-          </tbody>
+            ))}
+        </tbody>
         </table>
-      </div>
+    </div>
     </>
   );
 }

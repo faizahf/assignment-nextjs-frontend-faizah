@@ -18,7 +18,7 @@ function Layout({ children }: LayoutProps) {
     return (
       <div className="flex">
         <Sidebar />
-        <div className="min-h-screen flex-1 p-7 bg-secondary">
+        <div className="min-h-screen flex-1 p-7 bg-secondary overflow-x-auto">
           {children}
         </div>
       </div>
