@@ -4,6 +4,9 @@ import { Event } from "@/types";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
+import { BiSolidDetail } from "react-icons/bi";
+import { FaEdit } from "react-icons/fa";
+import { MdDelete } from "react-icons/md";
 
 function EventListPage() {
   const router = useRouter();
@@ -35,7 +38,7 @@ function EventListPage() {
         <h1 className="text-2xl font-semibold">Events</h1>
         <div className="flex gap-3">
           <Button
-            styles={"btn-primary bg-primary"}
+            styles={"btn-primary bg-navy-blue"}
             value={"Add New Event"}
             funcOnClick={() => router.push("events/add-event")}
           />
@@ -66,6 +69,7 @@ function EventListPage() {
               <th>Location</th>
               <th className="text-center">Total Capacity</th>
               <th className="text-center">Remaining Capacity</th>
+              <th className="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
@@ -75,13 +79,18 @@ function EventListPage() {
                   <td>{event.id}</td>
                   <td>{event.name}</td>
                   <td>{event.date}</td>
-                  <td>{event.time}</td>
+                  <td>{event.startTime}</td>
                   <td>{event.price}</td>
                   <td>{event.location}</td>
                   <td className="text-center">{event.capacity.total}</td>
                   <td className="text-center">
                     {event.capacity.total - event.capacity.booked}
                   </td>
+                  <td className="flex gap-2 justify-center">
+                    <button className="bg-primary p-2 rounded" onClick={() => router.push(`events/${event.id}`)}><BiSolidDetail color="white" size="20"/></button>
+                    <button className="bg-yellow-500 p-2 rounded" onClick={() => router.push(`events/${event.id}/edit`)}><FaEdit color="white" size="20"/></button>
+                    <button className="bg-red-600 p-2 rounded"><MdDelete color="white" size="20"/></button>
+                </td>
                 </tr>
               ))}
           </tbody>

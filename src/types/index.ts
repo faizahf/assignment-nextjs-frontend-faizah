@@ -15,7 +15,7 @@ export type Event = {
   id: number;
   name: string;
   date: string;
-  time: string;
+  startTime: string;
   price: number;
   image: string;
   description: string;

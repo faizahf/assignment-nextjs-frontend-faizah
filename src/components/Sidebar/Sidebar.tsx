@@ -26,7 +26,8 @@ export const Sidebar = () => {
       <div
         className={`text-primary ${
           openSidebar ? "w-80" : "w-20"
-        } bg-white min-h-screen p-5 pt-8 relative duration-300`}
+        }
+        bg-white min-h-screen p-5 pt-8 relative duration-300`}
       >
         <IoIosArrowBack
           className={`absolute cursor-pointer -right-5 top-7 w-10 h-10 bg-primary text-white

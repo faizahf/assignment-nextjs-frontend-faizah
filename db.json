@@ -108,7 +108,8 @@
       "id": 1,
       "name": "Pottery workshop 1",
       "date": "28-10-2023",
-      "time": "09.00 PM",
+      "startTime": "09.00 PM",
+      "duration": "1 hour",
       "price": 200000,
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/0a/62/c0/getlstd-property-photo.jpg?w=1200&h=-1&s=1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum. Nunc quis turpis pharetra est gravida rutrum. Mauris vitae nunc et tellus tempor dapibus ac sed felis. Etiam a sapien ac enim pellentesque auctor vel et orci. Phasellus placerat sed magna id suscipit.",
@@ -122,7 +123,8 @@
       "id": 2,
       "name": "Pottery workshop 2",
       "date": "28-10-2023",
-      "time": "09.00 PM",
+      "startTime": "09.00 PM",
+      "duration": "1 hour",
       "price": 200000,
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/0a/62/c0/getlstd-property-photo.jpg?w=1200&h=-1&s=1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum. Nunc quis turpis pharetra est gravida rutrum. Mauris vitae nunc et tellus tempor dapibus ac sed felis. Etiam a sapien ac enim pellentesque auctor vel et orci. Phasellus placerat sed magna id suscipit.",
@@ -136,7 +138,8 @@
       "id": 3,
       "name": "Pottery workshop 3",
       "date": "28-10-2023",
-      "time": "09.00 PM",
+      "startTime": "09.00 PM",
+      "duration": "1 hour",
       "price": 200000,
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/0a/62/c0/getlstd-property-photo.jpg?w=1200&h=-1&s=1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum. Nunc quis turpis pharetra est gravida rutrum. Mauris vitae nunc et tellus tempor dapibus ac sed felis. Etiam a sapien ac enim pellentesque auctor vel et orci. Phasellus placerat sed magna id suscipit.",
@@ -150,7 +153,8 @@
       "id": 4,
       "name": "Pottery workshop 4",
       "date": "28-10-2023",
-      "time": "09.00 PM",
+      "startTime": "09.00 PM",
+      "duration": "1 hour",
       "price": 200000,
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/0a/62/c0/getlstd-property-photo.jpg?w=1200&h=-1&s=1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum. Nunc quis turpis pharetra est gravida rutrum. Mauris vitae nunc et tellus tempor dapibus ac sed felis. Etiam a sapien ac enim pellentesque auctor vel et orci. Phasellus placerat sed magna id suscipit.",
@@ -163,9 +167,9 @@
     {
       "id": 5,
       "name": "Pottery workshop 5",
-      "startTime": "28-10-2023",
       "date": "28-10-2023",
-      "time": "09.00 PM",
+      "startTime": "09.00 PM",
+      "duration": "1 hour",
       "price": 200000,
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/0a/62/c0/getlstd-property-photo.jpg?w=1200&h=-1&s=1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum. Nunc quis turpis pharetra est gravida rutrum. Mauris vitae nunc et tellus tempor dapibus ac sed felis. Etiam a sapien ac enim pellentesque auctor vel et orci. Phasellus placerat sed magna id suscipit.",
@@ -179,7 +183,8 @@
       "id": 6,
       "name": "Pottery workshop 6",
       "date": "28-10-2023",
-      "time": "09.00 PM",
+      "startTime": "09.00 PM",
+      "duration": "1 hour",
       "price": 200000,
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/0a/62/c0/getlstd-property-photo.jpg?w=1200&h=-1&s=1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum. Nunc quis turpis pharetra est gravida rutrum. Mauris vitae nunc et tellus tempor dapibus ac sed felis. Etiam a sapien ac enim pellentesque auctor vel et orci. Phasellus placerat sed magna id suscipit.",
@@ -188,6 +193,83 @@
         "total": 30,
         "booked": 10
       }
+    },
+    {
+      "name": "event",
+      "price": "10",
+      "date": "10",
+      "startTime": "10",
+      "duration": "10",
+      "image": "",
+      "description": "adf",
+      "location": "Jalan Mega Kuningan",
+      "capacity": {
+        "total": "10",
+        "booked": 0
+      },
+      "id": 7
+    },
+    {
+      "name": "test",
+      "price": "100000",
+      "date": "10",
+      "startTime": "10",
+      "duration": "10",
+      "image": "",
+      "description": "ajskdf",
+      "location": "Jalan Mega Kuningan",
+      "capacity": {
+        "total": "10",
+        "booked": 0
+      },
+      "id": 8
+    },
+    {
+      "name": "aaa",
+      "date": "10",
+      "startTime": "10",
+      "duration": "10",
+      "price": "1000000",
+      "image": "",
+      "description": "skdjzfawdf",
+      "location": "aaaaaaaaaa",
+      "capacity": {
+        "total": "10",
+        "booked": 0
+      },
+      "id": 9
+    },
+    {
+      "name": "bbb",
+      "date": "10",
+      "startTime": "10",
+      "duration": "10",
+      "price": 100000,
+      "image": "",
+      "description": "askjdfa",
+      "location": "alksjdf",
+      "capacity": {
+        "total": 10,
+        "booked": 0
+      },
+      "id": 10
+    },
+    {
+      "name": "Cooking workshop",
+      "date": "10 Desember 2023",
+      "startTime": "10.00",
+      "duration": "1 hour",
+      "price": 300000,
+      "image": {
+        "0": {}
+      },
+      "description": "Cooking workshop with chef Juna",
+      "location": "Jalan One Satrio",
+      "capacity": {
+        "total": 100,
+        "booked": 0
+      },
+      "id": 11
     }
   ],
   "merchandises": [
