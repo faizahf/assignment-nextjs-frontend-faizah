@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 function AddEventPage() {
+    const today = new Date().toISOString().split('T')[0];
     const router = useRouter();
     const { fetchData: postEvent } = useFetch<Event>();
     const {
@@ -49,13 +50,14 @@ function AddEventPage() {
             },
             body: JSON.stringify({
               name: data.name,
+              category: Number(data.category),
+              location: data.location,
               date: data.date,
               startTime: data.startTime,
-              duration: data.duration,
+              duration: Number(data.duration),
               price: Number(data.price),
               image: url,
               description: data.description,
-              location: data.location,
               capacity: {total: Number(data.capacity), booked: 0},
           }),
         })
@@ -74,6 +76,9 @@ function AddEventPage() {
                 value: /^(?=\S)(.{5,})$/,
                 message: "Input can't only contains or starts with blank space"
             },
+        },
+        category: {
+          required: "Event name is required",
         },
         location: { 
             required: "Event location is required",
@@ -118,6 +123,14 @@ function AddEventPage() {
         },
         duration: {
             required: "Duration is required",
+            min: {
+              value: 1,
+              message: "Minimum duration is 1 hour"
+            },
+            max: {
+              value: 8,
+              message: "Maximum duration is 8 hour"
+            }
         },
         image: {
             required: "Image is required",
@@ -162,6 +175,26 @@ function AddEventPage() {
             </small>
           </div>
           <div className="col-span-3">
+            <label htmlFor="category" className="mb-2">
+                Category
+            </label>
+            <select
+              placeholder="Enter event category"
+              className="block form-input border rounded-lg w-full p-2.5 bg-white"
+              {...register("category", addEventOptions.category)}
+            >
+              <option value={0}>Choose event category</option>
+              <option value={1}>Art</option>
+              <option value={2}>Writing</option>
+              <option value={3}>Cooking</option>
+              <option value={4}>Technology</option>
+              <option value={5}>Development</option>
+            </select>
+            <small className="text-red-700">
+                {errors.location && errors.location.message}
+            </small>
+          </div>
+          <div className="col-span-6 row-start-2">
             <label htmlFor="location" className="mb-2">
                 Location
             </label>
@@ -175,7 +208,7 @@ function AddEventPage() {
                 {errors.location && errors.location.message}
             </small>
           </div>
-          <div className="col-span-3 row-start-2">
+          <div className="col-span-3 row-start-3">
             <label htmlFor="price" className="mb-2">
               Price
             </label>
@@ -189,7 +222,7 @@ function AddEventPage() {
                 {errors.price && errors.price.message}
             </small>
           </div>
-          <div className="col-span-3 col-start-4 row-start-2">
+          <div className="col-span-3 col-start-4 row-start-3">
             <label htmlFor="capacity" className="mb-2">
               Capacity
             </label>
@@ -203,26 +236,27 @@ function AddEventPage() {
                 {errors.capacity && errors.capacity.message}
             </small>
           </div>
-          <div className="col-span-2 row-start-3">
+          <div className="col-span-2 row-start-4">
             <label htmlFor="date" className="mb-2">
               Date
             </label>
             <input
-              type="text"
+              type="date"
               placeholder="Enter event date"
               className="block form-input border rounded-lg w-full p-2.5"
               {...register("date", addEventOptions.date)}
+              min={today}
             />
             <small className="text-red-700">
                 {errors.date && errors.date.message}
             </small>
           </div>
-          <div className="col-span-2 col-start-3 row-start-3">
+          <div className="col-span-2 col-start-3 row-start-4">
             <label htmlFor="startTime" className="mb-2">
               Start Time
             </label>
             <input
-              type="text"
+              type="time"
               placeholder="Enter start time"
               className="block form-input border rounded-lg w-full p-2.5"
               {...register("startTime", addEventOptions.startTime)}
@@ -231,21 +265,32 @@ function AddEventPage() {
                 {errors.startTime && errors.startTime.message}
             </small>
           </div>
-          <div className="col-span-2 col-start-5 row-start-3">
+          <div className="col-span-2 col-start-5 row-start-4">
             <label htmlFor="duration" className="mb-2">
               Duration
             </label>
-            <input
-              type="text"
-              placeholder="Enter duration"
-              className="block form-input border rounded-lg w-full p-2.5"
-              {...register("duration", addEventOptions.duration)}
-            />
+            {/* <div className="block rounded-lg w-full flex">
+
+              <input id='h' name='h' type='number' min='0' max='23' className="w-full p-2.5 border rounded-lg" />
+              <label htmlFor='h' className="p-2.5">hour</label>
+              <input id='m' name='m' type='number' min='0' max='59' className="w-full p-2.5 border rounded-lg"/>
+              <label htmlFor='m' className="p-2.5">minute</label>
+            </div> */}
+            <div className="relative">
+              <input
+                type="number"
+                placeholder="Enter duration"
+                className="block form-input border rounded-lg w-full p-2.5"
+                {...register("duration", addEventOptions.duration)}
+              />
+              <span className="block absolute right-1 top-0.5 bg-white p-2 rounded-lg">hour</span>
+            </div>
+
             <small className="text-red-700">
                 {errors.duration && errors.duration.message}
             </small>
           </div>
-          <div className="col-span-6 row-start-4">
+          <div className="col-span-6 row-start-5">
             <label htmlFor="image" className="mb-2">
               Image
             </label>
@@ -260,7 +305,7 @@ function AddEventPage() {
                 {errors.image && errors.image.message}
             </small>
           </div>
-          <div className="col-span-6 row-start-5">
+          <div className="col-span-6 row-start-6">
             <label htmlFor="description" className="mb-2">
               Description
             </label>

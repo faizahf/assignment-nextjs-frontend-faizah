@@ -14,12 +14,14 @@ export type User = {
 export type Event = {
   id: number;
   name: string;
+  category: number;
+  location: string;
   date: string;
   startTime: string;
+  duration: number;
   price: number;
   image: string;
   description: string;
-  location: string;
   capacity: Capacity;
   merchandises?: Merchandise[];
 };

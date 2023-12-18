@@ -7,6 +7,7 @@ import { IoIosSearch } from "react-icons/io";
 import { BiSolidDetail } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { formatRupiah, getCategoryName } from "@/utils";
 
 function EventListPage() {
   const router = useRouter();
@@ -63,6 +64,7 @@ function EventListPage() {
             <tr className="bg-primary text-white">
               <th>ID</th>
               <th>Name</th>
+              <th>Category</th>
               <th>Date</th>
               <th>Time</th>
               <th>Price</th>
@@ -78,9 +80,10 @@ function EventListPage() {
                 <tr key={event.id} className="text-medium hover:bg-indigo-100">
                   <td>{event.id}</td>
                   <td>{event.name}</td>
+                  <td>{getCategoryName(event.category)}</td>
                   <td>{event.date}</td>
                   <td>{event.startTime}</td>
-                  <td>{event.price}</td>
+                  <td>{formatRupiah(event.price)}</td>
                   <td>{event.location}</td>
                   <td className="text-center">{event.capacity.total}</td>
                   <td className="text-center">
