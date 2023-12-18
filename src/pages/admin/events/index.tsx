@@ -40,7 +40,7 @@ function EventListPage() {
           <Button
             styles={"btn-primary bg-navy-blue"}
             value={"Add New Event"}
-            funcOnClick={() => router.push("events/add-event")}
+            funcOnClick={() => router.push("events/add")}
           />
 
           <div className="flex items-center relative justify-end">
