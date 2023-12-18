@@ -1,7 +1,7 @@
 import useFetch from "@/hooks/useFetch";
 import { Event } from "@/types";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 function AddEventPage() {
@@ -12,8 +12,36 @@ function AddEventPage() {
         handleSubmit,
         formState: { errors },
       } = useForm();
+    const [ image, setImage ] = useState("");
+    const [ url, setUrl ] = useState("");
 
-    const handleAddEvent = (data: any) => {
+    const uploadImage = async () => {
+      const data = new FormData()
+  
+      if (image) {
+        data.append("file", image)
+      }
+      data.append("upload_preset", "skillup")
+      data.append("cloud_name","dpwb7bjzp")
+      data.append("api_key", "841675276915747")
+  
+      const response = await fetch("https://api.cloudinary.com/v1_1/dpwb7bjzp/image/upload",{
+        method:"POST",
+        body: data
+        })
+        .then(resp => resp.json())
+        .then(data => {
+          console.log(data.url);
+          setUrl(data.url)
+        })
+        .catch(err => console.log(err))
+    }
+
+    useEffect(() => {
+      uploadImage();
+    }, [image])
+
+    const handleAddEvent = async (data: any) => {
         postEvent("events", {
             method: "POST",
             headers: {
@@ -25,7 +53,7 @@ function AddEventPage() {
               startTime: data.startTime,
               duration: data.duration,
               price: Number(data.price),
-              image: data.image,
+              image: url,
               description: data.description,
               location: data.location,
               capacity: {total: Number(data.capacity), booked: 0},
@@ -226,6 +254,7 @@ function AddEventPage() {
               placeholder="Enter image"
               className="block form-input border rounded-lg w-full p-2.5"
               {...register("image", addEventOptions.image)}
+              onChange= {(e)=> setImage(e.target.files[0])}
             />
             <small className="text-red-700">
                 {errors.image && errors.image.message}

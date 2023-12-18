@@ -270,6 +270,51 @@
         "booked": 0
       },
       "id": 11
+    },
+    {
+      "name": "tesss",
+      "date": "10",
+      "startTime": "10",
+      "duration": "1",
+      "price": 10000,
+      "image": "",
+      "description": "askdjf",
+      "location": "aaaaaaa",
+      "capacity": {
+        "total": 10,
+        "booked": 0
+      },
+      "id": 12
+    },
+    {
+      "name": "new event",
+      "date": "1",
+      "startTime": "1",
+      "duration": "1",
+      "price": 1000,
+      "image": "",
+      "description": "ksjdhfalksdf",
+      "location": "new event",
+      "capacity": {
+        "total": 10,
+        "booked": 0
+      },
+      "id": 13
+    },
+    {
+      "name": "testtt",
+      "date": "1",
+      "startTime": "1",
+      "duration": "1",
+      "price": 100,
+      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702874169/rw6ws9fdnqkezaezn30t.png",
+      "description": "sjngkjsdfd",
+      "location": "asdja",
+      "capacity": {
+        "total": 10,
+        "booked": 0
+      },
+      "id": 14
     }
   ],
   "merchandises": [
