@@ -44,7 +44,6 @@ function EditEventPage() {
         })
         .then(resp => resp.json())
         .then(data => {
-          console.log(data.url);
           setUrl(data.url)
         })
         .catch(err => console.log(err))
@@ -56,7 +55,6 @@ function EditEventPage() {
 
     const handleEditEvent = () => {
         const data = getValues()
-        console.log(data);
         if (data === null) return
         postEvent(`events/${id}`, {
             method: "PATCH",

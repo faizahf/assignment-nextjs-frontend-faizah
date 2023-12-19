@@ -15,7 +15,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
             <div className="fixed inset-0 transition-opacity" onClick={onClose}>
               <div className="absolute inset-0 bg-black opacity-50"></div>
             </div>
-            <div className="relative bg-white z-10 p-5 w-1/4 rounded-lg bg-light-grey hover:shadow-[2px_3px_10px_4px_#D8472726]">
+            <div className="relative bg-white z-10 p-5 w-1/3 min-w-[300px] rounded-lg bg-light-grey shadow-md">
               {children}
             </div>
           </div>
