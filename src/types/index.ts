@@ -1,5 +1,3 @@
-import { MerchandiseItem, MerchandiseState } from "@/stores/slices/merchandise/merchandiseSlice";
-
 export type User = {
   id: number;
   name: string;
