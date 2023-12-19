@@ -4,7 +4,6 @@ import { Event } from "@/types";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { IoIosSearch } from "react-icons/io";
-import { BiSolidDetail } from "react-icons/bi";
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { formatRupiah, getCategoryName } from "@/utils";
@@ -131,12 +130,6 @@ function EventListPage() {
                   </td>
                   <td className="flex gap-2 justify-center">
                     <button
-                      className="bg-primary p-2 rounded"
-                      onClick={() => router.push(`events/${event.id}`)}
-                    >
-                      <BiSolidDetail color="white" size="20" />
-                    </button>
-                    <button
                       className="bg-yellow-500 p-2 rounded"
                       onClick={() => router.push(`events/${event.id}/edit`)}
                     >
@@ -150,12 +143,11 @@ function EventListPage() {
                     </button>
                   </td>
                   <Modal isOpen={isModalOpen} onClose={closeModal}>
-                    <div className="justify-between">
                       <div className="flex justify-between">
                         <h1 className="text-primary font-semibold text-[20px]">
                           Confirm Delete Event
                         </h1>
-                        <span>&times;</span>
+                        <span className="cursor-pointer" onClick={closeModal}>&times;</span>
                       </div>
                       <p className="py-10">
                         Are you sure want to delete{" "}
@@ -176,7 +168,6 @@ function EventListPage() {
                           funcOnClick={closeModal}
                         />
                       </div>
-                    </div>
                   </Modal>
                 </tr>
               ))}

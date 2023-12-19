@@ -9,7 +9,7 @@ function EditEventPage() {
   const id = router.query.eventId;
     const today = new Date().toISOString().split('T')[0];
     const { data: event, fetchData: fetchEvent } = useFetch<Event>();
-    const { fetchData: postEvent } = useFetch<Event>();
+    const { fetchData: updateEvent } = useFetch<Event>();
     const {
         register,
         handleSubmit,
@@ -56,14 +56,14 @@ function EditEventPage() {
     const handleEditEvent = () => {
         const data = getValues()
         if (data === null) return
-        postEvent(`events/${id}`, {
+        updateEvent(`events/${id}`, {
             method: "PATCH",
             headers: {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
               name: data.event?.name,
-              category: data.event?.category,
+              category: Number(data.event?.category),
               location: data.event?.location,
               date: data.event?.date,
               startTime: data.event?.startTime,
@@ -91,7 +91,7 @@ function EditEventPage() {
             },
         },
         category: {
-          required: "Event name is required",
+          required: "Category is required",
         },
         location: { 
             required: "Event location is required",
