@@ -9,23 +9,27 @@ function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value;
   const role = request.cookies.get("role")?.value;
 
-  if (authRoutes.includes(request.nextUrl.pathname) && token)  {
+  if (["/auth/login", "/auth/signup"].includes(request.nextUrl.pathname) && token)  {
     if (role === "admin") {
-        return NextResponse.redirect(new URL("/admin", request.url));
+      return NextResponse.redirect(new URL("/admin", request.url));
       
-    } else {
+    } else if (role === "user") {
       return NextResponse.redirect(new URL("/", request.url));
     }
   }
   
-  if ((protectedRoutes.includes(request.nextUrl.pathname) || publicRoutes.includes(request.nextUrl.pathname)) && !token && !role) {
-    request.cookies.delete("token");
-    request.cookies.delete("role");
+  if (["/admin", "/events", "/"].includes(request.nextUrl.pathname) && !token && !role) {
+    return NextResponse.redirect(new URL("/auth/login", request.url));
+  }
 
-    const response = NextResponse.redirect(new URL("/auth/login", request.url));
-    response.cookies.delete("token");
-
-    return response;
+  if (request.nextUrl.pathname.startsWith("/admin") &&  token && role === "user") {
+    return NextResponse.redirect(new URL("/", request.url))
+  }
+  if (['/'].includes(request.nextUrl.pathname) && token && role === "admin") {
+    return NextResponse.redirect(new URL("/admin", request.url))
+  }
+  if (request.nextUrl.pathname.startsWith('/events') && token && role === "admin") {
+    return NextResponse.redirect(new URL("/admin", request.url))
   }
 }
 
