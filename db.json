@@ -106,12 +106,12 @@
   "events": [
     {
       "name": "Pottery workshop 1",
-      "category": "1",
+      "category": 1,
       "location": "Jalan Mega Kuningan",
       "date": "2023-12-19",
       "startTime": "16:00",
       "duration": "1",
-      "price": "100000",
+      "price": "200000",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum. ",
       "capacity": {
         "total": 10,
@@ -131,7 +131,8 @@
       "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702950907/ynrkvummigdzks3r2xho.png",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum.",
       "capacity": {
-        "total": "1"
+        "total": 10,
+        "booked": 0
       }
     },
     {
@@ -146,7 +147,8 @@
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/0a/62/c0/getlstd-property-photo.jpg?w=1200&h=-1&s=1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum",
       "capacity": {
-        "total": "25"
+        "total": 25,
+        "booked": 0
       }
     },
     {
@@ -208,7 +210,7 @@
       "image": "",
       "description": "adf",
       "capacity": {
-        "total": "10",
+        "total": 10,
         "booked": 0
       },
       "id": 7
@@ -224,46 +226,14 @@
       "image": "",
       "description": "ajskdf",
       "capacity": {
-        "total": "10",
+        "total": 10,
         "booked": 0
       },
       "id": 8
     },
     {
-      "name": "aaa",
-      "category": 1,
-      "location": "Jalan Mega Kuningan",
-      "date": "2023-12-19",
-      "startTime": "19:00",
-      "duration": 1,
-      "price": "1000000",
-      "image": "",
-      "description": "skdjzfawdf",
-      "capacity": {
-        "total": "10",
-        "booked": 0
-      },
-      "id": 9
-    },
-    {
-      "name": "bbb",
-      "category": 1,
-      "location": "Jalan Mega Kuningan",
-      "date": "2023-12-19",
-      "startTime": "13:00",
-      "duration": 1,
-      "price": 100000,
-      "image": "",
-      "description": "askjdfa",
-      "capacity": {
-        "total": 10,
-        "booked": 0
-      },
-      "id": 10
-    },
-    {
       "name": "Cooking workshop",
-      "category": 1,
+      "category": 3,
       "location": "Jalan Mega Kuningan",
       "date": "2023-12-19",
       "startTime": "10:00",
@@ -276,22 +246,6 @@
         "booked": 0
       },
       "id": 11
-    },
-    {
-      "name": "tesss",
-      "category": 1,
-      "location": "Jalan Mega Kuningan",
-      "date": "2023-12-19",
-      "startTime": "09:00",
-      "duration": 1,
-      "price": 10000,
-      "image": "",
-      "description": "askdjf",
-      "capacity": {
-        "total": 10,
-        "booked": 0
-      },
-      "id": 12
     },
     {
       "name": "new event",
@@ -308,38 +262,6 @@
         "booked": 0
       },
       "id": 13
-    },
-    {
-      "name": "testtt",
-      "category": 1,
-      "location": "Jalan One Satrio",
-      "date": "2023-12-19",
-      "startTime": "16:00",
-      "duration": "1",
-      "price": 100,
-      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702874169/rw6ws9fdnqkezaezn30t.png",
-      "description": "sjngkjsdfd",
-      "capacity": {
-        "total": 10,
-        "booked": 0
-      },
-      "id": 14
-    },
-    {
-      "name": "event apa ya",
-      "category": 1,
-      "location": "asjdf",
-      "date": "2023-12-19",
-      "startTime": "16:00",
-      "duration": "1",
-      "price": 100,
-      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702886387/yld4eqkfeyfn9ievbxsr.png",
-      "description": "kljlkjlkj",
-      "capacity": {
-        "total": 10,
-        "booked": 0
-      },
-      "id": 15
     }
   ],
   "merchandises": [
@@ -369,6 +291,24 @@
       "name": "acrylic paint",
       "description": "lorem ipsum dolor sit amet",
       "eventId": 1
+    },
+    {
+      "name": "Black pan",
+      "eventId": 11,
+      "price": 250000,
+      "stock": 10,
+      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702965962/bhejvzf738ywu3jhferd.png",
+      "description": "akjhksjadf",
+      "id": 4
+    },
+    {
+      "name": "panci",
+      "eventId": 11,
+      "price": 100000,
+      "stock": 10,
+      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702968573/fvtqomytc4av1ldigdyf.png",
+      "description": "jsdfasdjf",
+      "id": 5
     }
   ],
   "purchases": [
