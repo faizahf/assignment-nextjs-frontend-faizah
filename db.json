@@ -55,8 +55,8 @@
       "email": "coba@mail.com",
       "password": "11111111",
       "role": "user",
-      "membership": 0,
-      "balance": 0,
+      "membership": 3,
+      "balance": 200000,
       "image": "",
       "id": 6
     },

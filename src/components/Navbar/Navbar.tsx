@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { FcMindMap } from "react-icons/fc";
 import { useRouter } from 'next/router';
+import { formatRupiah } from '@/utils';
 
 function Navbar() {
     const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function Navbar() {
                     <div className="z-50 hidden my-4 text-base list-none bg-dark divide-y divide-gray-100 rounded-lg shadow" id="user-dropdown">
                         <div className="px-4 py-3">
                             <span className="block text-sm text-white capitalize">{loggedUser?.name}</span>
-                            <span className="block text-sm  text-white truncate">Balance: {loggedUser?.balance}</span>
+                            <span className="block text-sm  text-white truncate">Balance: {formatRupiah(Number(loggedUser?.balance))}</span>
                         </div>
                         <ul className="py-2" aria-labelledby="user-menu-button">
                             <li>

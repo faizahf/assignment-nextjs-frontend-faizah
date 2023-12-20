@@ -90,11 +90,16 @@ function BookmarksPage() {
 
   return (
     <>
-      <h1 className="text-[36px] text-dark font-semibold">
+      <h1 className="text-[36px] text-dark font-semibold text-center">
         Bookmarked Events
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 my-5">
-        {bookmarkedEventsByUser?.map((data) => (
+        {bookmarkedEventsByUser?.length === 0 && (
+          <div className="w-full col-span-4 text-center">
+            <p className="text-xl">You haven't bookmarked any event.</p>
+          </div>
+        )}
+        {bookmarkedEventsByUser && bookmarkedEventsByUser.map((data) => (
           <div
             key={data.event?.id}
             className="card card-compact bg-base-100 shadow-xl"
