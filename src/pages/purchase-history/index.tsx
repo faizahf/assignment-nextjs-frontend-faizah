@@ -18,7 +18,7 @@ function PurchaseHistoryPage() {
 
   return (
     <div>
-      <h1 className="text-[36px] text-dark font-semibold">
+      <h1 className="text-[36px] text-dark font-semibold text-center">
         Purchase History
       </h1>
       {purchases &&
