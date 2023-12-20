@@ -111,7 +111,7 @@ function Signup() {
               </h1>
             </div>
             <div className="w-full h-full px-5 lg:px-36">
-              <h1 className="text-[40px] font-semibold">Sign Up</h1>
+              <h1 className="text-[40px] font-semibold  mb-10">Sign Up</h1>
               {errorSignup !== "" && (
               <div role="alert" className="alert alert-error my-2">
                 <svg
@@ -131,7 +131,7 @@ function Signup() {
               </div>
             )}
               <form onSubmit={handleSubmit(handleRegistration, handleError)} noValidate>
-                <div className="mb-10">
+                <div className="my-5">
                   <label htmlFor="name" className="mb-2 text-[20px]">
                     Name
                   </label>
@@ -145,7 +145,7 @@ function Signup() {
                     {errors?.name && errors.name.message}
                   </small>
                 </div>
-                <div className="my-10">
+                <div className="my-5">
                   <label htmlFor="email" className="mb-2 text-[20px]">
                     Email
                   </label>
@@ -159,7 +159,7 @@ function Signup() {
                     {errors?.email && errors.email.message}
                   </small>
                 </div>
-                <div className="my-10">
+                <div className="my-5">
                   <label htmlFor="password" className="mb-2 text-[20px]">
                     Password
                   </label>
@@ -173,7 +173,7 @@ function Signup() {
                     {errors?.password && errors.password.message}
                   </small>
                 </div>
-                <div className="my-10">
+                <div className="my-5">
                   <label htmlFor="confirmPassword" className="mb-2 text-[20px]">
                     Confirm Password
                   </label>

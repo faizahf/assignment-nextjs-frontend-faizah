@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { FaRegBookmark } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
 import Button from "@/components/Button/Button";
-import { formatRupiah } from "@/utils";
+import { formatRupiah, getCategoryName } from "@/utils";
 
 function BookmarksPage() {
   const router = useRouter();
@@ -93,18 +93,21 @@ function BookmarksPage() {
       <h1 className="text-[36px] text-primary font-semibold">
         Bookmarked Events
       </h1>
-      <div className="grid grid-cols-4 gap-5 my-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 my-5">
         {bookmarkedEventsByUser?.map((data) => (
           <div
             key={data.event?.id}
-            className="card bg-base-100 shadow-xl"
+            className="card card-compact bg-base-100 shadow-xl"
           >
             <figure>
-              <img src={`${data.event?.image}`} alt={`${data.event?.name}`} />
+              <img src={`${data.event?.image}`} alt={`${data.event?.name}`} className="h-48 w-full object-cover"/>
             </figure>
             <div className="card-body">
               <div className="gap-2 w-full h-[39px] items-center flex justify-between">
-                <h2 className="card-title">{data.event?.name}</h2>
+                <h2 className="card-title">
+                  {data.event?.name}
+                  <div className="badge badge-neutral">{getCategoryName(Number(data.event?.category))}</div>
+                </h2>
                 {isBookmarked ? (
                   <FaBookmark size={24} />
                 ) : (

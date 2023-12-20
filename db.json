@@ -101,6 +101,11 @@
       "userId": 7,
       "eventId": 4,
       "id": 6
+    },
+    {
+      "userId": 7,
+      "eventId": 13,
+      "id": 7
     }
   ],
   "events": [
@@ -112,6 +117,7 @@
       "startTime": "16:00",
       "duration": "1",
       "price": "200000",
+      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702950907/ynrkvummigdzks3r2xho.png",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum. ",
       "capacity": {
         "total": 10,
@@ -191,7 +197,7 @@
       "date": "2023-12-19",
       "startTime": "16:00",
       "duration": 1,
-      "image": "",
+      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702950907/ynrkvummigdzks3r2xho.png",
       "description": "adf",
       "capacity": {
         "total": 10,
@@ -207,7 +213,7 @@
       "date": "2023-12-19",
       "startTime": "16:00",
       "duration": 1,
-      "image": "",
+      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702950907/ynrkvummigdzks3r2xho.png",
       "description": "ajskdf",
       "capacity": {
         "total": 10,
@@ -223,7 +229,7 @@
       "startTime": "10:00",
       "duration": 1,
       "price": 300000,
-      "image": "",
+      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702950907/ynrkvummigdzks3r2xho.png",
       "description": "Cooking workshop with chef Juna",
       "capacity": {
         "total": 100,
@@ -239,7 +245,7 @@
       "startTime": "14:00",
       "duration": 1,
       "price": 1000,
-      "image": "",
+      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702950907/ynrkvummigdzks3r2xho.png",
       "description": "ksjdhfalksdf",
       "capacity": {
         "total": 10,

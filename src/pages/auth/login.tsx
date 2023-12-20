@@ -93,7 +93,7 @@ function Login() {
               <h1 className="text-primary text-[40px] font-semibold">SkillUp</h1>
             </div>
             <div className="w-full h-full px-5 lg:px-36">
-              <h1 className="text-[40px] font-semibold">Log In</h1>
+              <h1 className="text-[40px] font-semibold mb-10">Log In</h1>
               {errorLogin !== "" && (
                 <div role="alert" className="alert alert-error my-2">
                   <svg
@@ -113,14 +113,13 @@ function Login() {
                 </div>
               )}
               <form onSubmit={handleSubmit(handleLogin, handleError)} noValidate>
-                <div className="mb-10">
+                <div className="my-5">
                   <label htmlFor="email" className="mb-2 font-medium text-[20px]">
                     Email
                   </label>
                   <input
                     type="email"
                     id="email"
-                    name="email"
                     placeholder="Your email here.."
                     className="block form-input border rounded w-full p-2.5 placeholder-[#666666]"
                     {...register("email", registerOptions.email)}
@@ -139,7 +138,6 @@ function Login() {
                   <input
                     type="password"
                     id="password"
-                    name="password"
                     placeholder="Your password here.."
                     className="block form-input border rounded w-full p-2.5 placeholder-secondary-text"
                     {...register("password", registerOptions.password)}
@@ -149,10 +147,10 @@ function Login() {
                   </small>
                 </div>
 
-                <div className="my-5 flex justify-between">
+                <div className="my-5 flex flex-col md:flex-row justify-between">
                   <div>
                     <input type="checkbox" />
-                    <span className="ml-4">Remember me</span>
+                    <span className="ml-3">Remember me</span>
                   </div>
                   <a href="#" className="flex flex-right underline text-primary">
                     Forgot password?

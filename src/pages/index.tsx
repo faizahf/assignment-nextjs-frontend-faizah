@@ -7,7 +7,8 @@ import { RootState } from "@/stores/store";
 import { FaRegBookmark } from "react-icons/fa";
 import { FaBookmark } from "react-icons/fa";
 import Button from "@/components/Button/Button";
-import { formatRupiah } from "@/utils";
+import { formatRupiah, getCategoryName } from "@/utils";
+import Image from "next/image";
 
 export default function Home() {
   const loggedUser = useSelector((state: RootState) => state.user.data);
@@ -98,22 +99,25 @@ export default function Home() {
   return (
     <>
       <h1 className="text-[36px] text-primary font-semibold">Workshops</h1>
-      <div className="grid grid-cols-4 gap-5 my-5">
-        {events?.map((event) => (
-          <div key={event.id} className="card bg-base-100 shadow-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 my-5">
+        {events && events.map((event) => (
+          <div key={event.id} className="card card-compact bg-base-100 shadow-xl">
             <figure>
-              <img src={`${event.image}`} alt={`${event.name}`} />
+              <img src={`${event.image}`} alt={`${event.name}`} className="h-48 w-full object-cover"/>
             </figure>
             <div className="card-body">
               <div className="gap-2 w-full h-[39px] items-center flex justify-between">
-                <h2 className="card-title">{event.name}</h2>
+                <h2 className="card-title">
+                  {event.name}
+                  <div className="badge badge-neutral">{getCategoryName(event.category)}</div>
+                </h2>
                 {checkIsBookmarked ? (
                   <FaBookmark size={24} onClick={() => handleBookmark(event.id)} />
                 ) : (
                   <FaRegBookmark size={24} onClick={() => handleBookmark(event.id)} />
                 )}
               </div>
-              <p>{event.date}, {event.time}</p>
+              <p>{event.date}, {event.startTime}</p>
               <p className="text-primary font-semibold text-2xl">
                 {formatRupiah(event.price)}
               </p>
