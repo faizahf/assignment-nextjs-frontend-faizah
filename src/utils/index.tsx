@@ -21,3 +21,16 @@ export const getCategoryName = (categoryNum: number): string => {
       return 'Category is undefined';
   }
 }
+
+export const getMembershipName = (memberNum: number): string => {
+  switch (memberNum) {
+    case 1:
+      return 'Silver';
+    case 2:
+      return 'Gold'
+    case 3:
+      return 'Platinum';
+    default:
+      return '';
+  }
+}

@@ -34,9 +34,8 @@ function Navbar() {
                     <FcMindMap size="24" />
                     <span className="self-center text-2xl font-bold whitespace-nowrap text-white">SkillUp</span>
                 </a>
-                <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                <div className="flex items-center md:order-2">
                     <button type="button" className="flex text-sm bg-secondary rounded-full md:me-0 focus:ring-1 focus:ring-secondary" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
-                        {loggedUser?.image === ""}
                         <img className="w-8 h-8 rounded-full" src={`${loggedUser?.image === "" ? "/img/unknown-image-user.png" : loggedUser?.image}`} alt="user photo" />
                     </button>
 
