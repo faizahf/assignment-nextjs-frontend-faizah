@@ -12,8 +12,11 @@ const config: Config = {
       colors: {
         'primary': '#7848F4',
         'secondary': '#F3EFFF',
-        'navy-blue': '#10107B',
+        'dark': '#131336',
         'grey': '#7E7E7E',
+        'silver': '#A1A1AA',
+        'gold': '#DAA511',
+        'platinum': '#334155'
       },
       fontFamily: {
         poppins: ['var(--font-poppins)'],

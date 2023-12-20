@@ -25,9 +25,9 @@ function Layout({ children }: LayoutProps) {
     );
   }
   return (
-    <div>
+    <div className="bg-secondary">
       <Navbar />
-      <main className="flex min-h-screen flex-col px-20 md:px-48 py-10 bg-secondary">{children}</main>
+      <main className="flex min-h-screen flex-col max-w-screen-xl mx-auto p-4 py-10 bg-secondary">{children}</main>
       <Footer />
     </div>
   );

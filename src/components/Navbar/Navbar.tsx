@@ -1,13 +1,19 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import { removeUser } from '@/stores/slices/user/userSlice';
+import { RootState } from '@/stores/store';
 import { removeAuthToken } from '@/utils/cookie';
+import Head from 'next/head';
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { FaBars, FaTimes } from 'react-icons/fa';
+import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
+import { FcMindMap } from "react-icons/fc";
+import { useRouter } from 'next/router';
 
 function Navbar() {
     const dispatch = useDispatch();
-    const [nav, setNav] = useState(false);
+    const router = useRouter();
+    const loggedUser = useSelector((state: RootState) => state.user.data);
 
     const handleLogout = () => {
         removeAuthToken('token');
@@ -17,52 +23,64 @@ function Navbar() {
     
   return (
     <>
-    <nav className='px-20 md:px-48 py-5 bg-navy-blue'>
-        <div className='flex gap-10 justify-between items-center text-center'>
-            <h1 className="text-primary text-[40px] font-bold">SkillUp</h1>
-            <div>
-                <ul className='hidden lg:flex text-[16px] gap-10 text-white items-center text-center'>
-                    <li><Link href="/">Home</Link></li>
-                    <li><Link href="/bookmarks">Bookmarks</Link></li>
-                    <li><Link href="/purchase-history">Purchase History</Link></li>
-                    <li><Link href="/profile">Profile</Link></li>
-                    <li><Link href="/" onClick={handleLogout}>Logout</Link></li>
-                </ul>
+        <Head>
+            <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" />
+            <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
+        </Head>   
+        <nav className="bg-dark border-gray-200">
+            <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+                <a href="https://flowbite.com/" className="flex items-center space-x-3 rtl:space-x-reverse text-primary">
+                    <FcMindMap size="24" />
+                    <span className="self-center text-2xl font-bold whitespace-nowrap text-white">SkillUp</span>
+                </a>
+                <div className="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
+                    <button type="button" className="flex text-sm bg-secondary rounded-full md:me-0 focus:ring-1 focus:ring-secondary" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+                        {loggedUser?.image === ""}
+                        <img className="w-8 h-8 rounded-full" src={`${loggedUser?.image === "" ? "/img/unknown-image-user.png" : loggedUser?.image}`} alt="user photo" />
+                    </button>
 
-                <div onClick={() => setNav(!nav)} className="cursor-pointer text-white lg:hidden">
-                    <FaBars size={30} />
-                </div>
-
-                {nav && (
-                    <div className="px-20 md:px-48 py-5 z-10 absolute top-0 left-0 w-full bg-navy-blue shadow-lg">
-                        <div className='flex gap-10 justify-between items-center text-center'>
-                            <h1 className="text-primary text-[40px] font-bold">SkillUp</h1>
-                            <div onClick={() => setNav(!nav)} className="cursor-pointer text-white lg:hidden">
-                                <FaTimes size={30} />
-                            </div>
+                    <div className="z-50 hidden my-4 text-base list-none bg-dark divide-y divide-gray-100 rounded-lg shadow" id="user-dropdown">
+                        <div className="px-4 py-3">
+                            <span className="block text-sm text-white capitalize">{loggedUser?.name}</span>
+                            <span className="block text-sm  text-white truncate">Balance: {loggedUser?.balance}</span>
                         </div>
-                        <ul className='flex flex-col justify-center items-center text-white py-16'>
-                            <li className="px-4 cursor-pointer capitalize py-6 text-2xl">
-                                <Link onClick={() => setNav(!nav)} href="/">Home</Link>
+                        <ul className="py-2" aria-labelledby="user-menu-button">
+                            <li>
+                                <Link href="/top-up" className={`block px-4 py-2 text-sm text-white hover:bg-primary ${router.asPath === "/top-up" ? 'bg-primary' : 'bg-transparent'}`}>Top Up Balance</Link>
                             </li>
-                            <li className="px-4 cursor-pointer capitalize py-6 text-2xl">
-                                <Link onClick={() => setNav(!nav)} href="/bookmarks">Bookmarks</Link>
+                            <li>
+                                <Link href="/profile" className={`block px-4 py-2 text-sm text-white hover:bg-primary ${router.asPath === "/profile" ? 'bg-primary' : 'bg-transparent'}`}>Profile</Link>
                             </li>
-                            <li className="px-4 cursor-pointer capitalize py-6 text-2xl">
-                                <Link onClick={() => setNav(!nav)} href="/purchase-history">Purchase History</Link>
-                            </li>
-                            <li className="px-4 cursor-pointer capitalize py-6 text-2xl">
-                                <Link onClick={() => setNav(!nav)} href="/profile">Profile</Link>
-                            </li>
-                            <li className="px-4 cursor-pointer capitalize py-6 text-2xl">
-                                <Link onClick={handleLogout} href="/">Logout</Link>
+                            <li>
+                                <Link href="/" onClick={handleLogout} className="block px-4 py-2 text-sm text-white hover:bg-primary">Logout</Link>
                             </li>
                         </ul>
                     </div>
-                )}
+                    <button data-collapse-toggle="navbar-user" type="button" className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-white rounded-lg md:hidden hover:bg-dark focus:outline-none focus:ring-2 focus:ring-gray-200" aria-controls="navbar-user" aria-expanded="false">
+                        <svg className="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 17 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h15M1 7h15M1 13h15"/>
+                        </svg>
+                    </button>
+                </div>
+                <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-user">
+                    <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0">
+                        <li>
+                            <Link href="/" className={`block py-2 px-3 text-white rounded-lg hover:bg-primary p-2 ${router.asPath === "/" ? 'bg-primary' : 'bg-transparent'}`}>Home</Link>
+                        </li>
+                        <li>
+                            <Link href="/bookmarks" className={`block py-2 px-3 text-white rounded-lg hover:bg-primary p-2 ${router.asPath === "/bookmarks" ? 'bg-primary' : 'bg-transparent'}`}>Bookmarks</Link>
+                        </li>
+                        <li>
+                            <Link href="/purchase-history" className={`block py-2 px-3 text-white rounded-lg hover:bg-primary p-2 ${router.asPath === "/purchase-history" ? 'bg-primary' : 'bg-transparent'}`}>Purchase History</Link>
+                        </li>
+                        <li>
+                            <Link href="/membership" className={`block py-2 px-3 text-white rounded-lg hover:bg-primary p-2 ${router.asPath === "/membership" ? 'bg-primary' : 'bg-transparent'}`}>Membership</Link>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+
     </>
   )
 }

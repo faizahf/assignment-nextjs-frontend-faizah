@@ -25,7 +25,7 @@
       "email": "aaa@mail.com",
       "password": "00000000",
       "role": "user",
-      "membership": 1,
+      "membership": 2,
       "balance": 0,
       "image": "",
       "id": 3
@@ -35,7 +35,7 @@
       "email": "abc@mail.com",
       "password": "00000000",
       "role": "user",
-      "membership": 1,
+      "membership": 3,
       "balance": 0,
       "image": "",
       "id": 4
@@ -55,7 +55,7 @@
       "email": "coba@mail.com",
       "password": "11111111",
       "role": "user",
-      "membership": "silver",
+      "membership": 0,
       "balance": 0,
       "image": "",
       "id": 6
@@ -65,8 +65,8 @@
       "email": "user@mail.com",
       "password": "11111111",
       "role": "user",
-      "membership": "silver",
-      "balance": 0,
+      "membership": 2,
+      "balance": 250000,
       "image": "",
       "id": 7
     }

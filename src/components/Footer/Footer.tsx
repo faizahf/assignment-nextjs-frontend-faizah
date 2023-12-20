@@ -2,7 +2,7 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer className="footer p-10 bg-navy-blue text-white px-60">
+    <footer className="footer bg-dark justify-between p-4 py-10 text-white mx-auto md:mx-0 px-5 lg:px-72">
       <nav>
         <header className="footer-title">Services</header>
         <a className="link link-hover">Branding</a>

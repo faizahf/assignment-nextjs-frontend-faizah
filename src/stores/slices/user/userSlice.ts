@@ -34,11 +34,16 @@ const userSlice = createSlice({
       if (state.data) {
         state.data.balance = action.payload;
       }
+    },
+    updateMembership: (state, action: PayloadAction<number>) => {
+      if (state.data) {
+        state.data.membership = action.payload;
+      }
     }
   },
 });
 
-export const { saveUser, removeUser, updateBalance } = userSlice.actions;
+export const { saveUser, removeUser, updateBalance, updateMembership } = userSlice.actions;
 
 const persistConfig = {
   key: 'root',
