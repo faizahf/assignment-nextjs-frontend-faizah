@@ -11,33 +11,35 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import { updateBalance } from "@/stores/slices/user/userSlice";
 import { formatRupiah } from "@/utils";
+import { PURGE } from "redux-persist";
 
 function PaymentPage() {
   const loggedUser = useSelector((state: RootState) => state.user.data);
-  const { data: event, fetchData: fetchEvent } = useFetch<Event>();
-  const { fetchData: fetchPurchase } = useFetch<Purchase>();
+  const { data: purchase, fetchData: fetchPurchase } = useFetch<Purchase>();
+  const { fetchData: updatePurchase } = useFetch<Purchase>();
   const router = useRouter();
   const dispatch = useDispatch();
-  const id = router.query.eventId;
-  const merchandises = useSelector((state: RootState) => state.merchandise.merchs);
+  const id = router.query.purchaseId;
   const { data: user, fetchData: fetchUser } = useFetch<User>();
 
   useEffect(() => {
-    fetchEvent(`events/${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    fetchPurchase(`purchases/${id}?_expand=event`, {
+        method: 'GET',
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
   }, [id]);
 
   const getTotalPayment = () => {
     let totalPayment = 0;
-    if (event) {
-      totalPayment += event.price;
+    if (purchase?.event) {
+      totalPayment += purchase?.event?.price;
     }
-    for (const data of merchandises) {
-      totalPayment += data.merch.qty * data.merch.price;
+    if (purchase) {
+        for (const data of purchase.merchandises) {
+          totalPayment += data.merch.qty * data.merch.price;
+        }
     }
     return totalPayment;
   };
@@ -61,25 +63,26 @@ function PaymentPage() {
   const handlePurchase = () => {
     if (loggedUser) {
       if (loggedUser.balance - getTotalPayment() >= 0) {
-        fetchPurchase("purchases", {
-          method: "POST",
+        updatePurchase(`purchases/${id}`, {
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            userId: loggedUser?.id,
-            eventId: 1,
-            purchaseDate: new Date(),
-            merchandises: merchandises,
             isPaid: true,
-            paymentTotal: getTotalPayment(),
           }),
         });
         decreaseBalance();
         dispatch(resetMerchandise());
-        router.push("/");
+        router.push("/purchase-history");
+        toast.success('Payment success!', {
+            position: toast.POSITION.TOP_CENTER,
+            autoClose: 2000,
+            theme: "light",
+            hideProgressBar: true,
+        });
       } else {
-        toast.error('Your balance is not sufficicent!', {
+        toast.error('Your balance is not sufficicent! Top up your SkillUpPay first.', {
           position: toast.POSITION.TOP_CENTER,
           autoClose: 2000,
           theme: "light",
@@ -94,32 +97,34 @@ function PaymentPage() {
       <h1 className="text-[36px] text-primary font-semibold">Payment</h1>
       <div className="border-secondary border rounded-xl w-full p-5 shadow-md bg-white">
         <h2 className="font-semibold text-2xl">Order Summary</h2>
-        <table className="w-full">
-          <tr className="font-semibold border-t">Event</tr>
-          <tr>
-            <td>{event?.name}</td>
-            <td className="text-end">x1</td>
-            <td className='text-end'>{formatRupiah(Number(event?.price))}</td>
-          </tr>
+        {purchase && purchase.event && 
+            <table className="w-full">
+            <tr className="font-semibold border-t">Event</tr>
+            <tr>
+                <td>{purchase?.event?.name}</td>
+                <td className="text-end">x1</td>
+                <td className='text-end'>{formatRupiah(Number(purchase?.event?.price))}</td>
+            </tr>
 
-        {merchandises.length !== 0 && 
-          <>
-            <tr className="font-semibold border-t">Merchandise</tr>
-            {merchandises.map((data) => (
-                <tr key={data.merch.id}>
-                    <td>{data.merch.name}</td>
-                    <td className="text-end">x{data.merch.qty}</td>
-                    <td className='text-end'>{formatRupiah(Number(data.merch.price))}</td>
-                </tr>
-              ))
+            {purchase?.merchandises.length !== 0 && 
+            <>
+                <tr className="font-semibold border-t">Merchandise</tr>
+                {purchase?.merchandises.map((data) => (
+                    <tr key={data.merch.id}>
+                        <td>{data.merch.name}</td>
+                        <td className="text-end">x{data.merch.qty}</td>
+                        <td className='text-end'>{formatRupiah(Number(data.merch.price))}</td>
+                    </tr>
+                ))
+                }
+            </>
             }
-          </>
-          }
-        <tr className="border-t">
-          <td className="font-semibold">Total Payment</td>
-          <td colSpan={2} className="text-end font-semibold text-primary">{formatRupiah(getTotalPayment())}</td>
-          </tr>
-        </table>
+            <tr className="border-t">
+            <td className="font-semibold">Total Payment</td>
+            <td colSpan={2} className="text-end font-semibold text-primary">{formatRupiah(getTotalPayment())}</td>
+            </tr>
+            </table>
+        }
       </div>
 
       <div className="border-secondary border-2 rounded-xl p-5 shadow-md bg-white">
@@ -128,13 +133,13 @@ function PaymentPage() {
           <div>
             <input type="radio" value={'SkillUpPay'} required defaultChecked /> SkillUpPay
           </div>
-          <small>Balance amount: {loggedUser?.balance}</small>
+          <small>Balance amount: {formatRupiah(Number(loggedUser?.balance))}</small>
 
         </div>
       </div>
       <Button
           styles={"btn-primary bg-primary"}
-          value={"Confirm your order"}
+          value={"Pay Now"}
           funcOnClick={handlePurchase}
         />
     </div>

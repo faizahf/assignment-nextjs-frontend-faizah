@@ -68,11 +68,11 @@ function EditEventPage() {
               location: data.location,
               date: data.date,
               startTime: data.startTime,
-              duration: data.duration,
-              price: data.price,
+              duration: Number(data.duration),
+              price: Number(data.price),
               image: url,
               description: data.description,
-              capacity: {total: data.capacity.total, booked: event?.capacity.booked},
+              capacity: {total: Number(data.capacity.total), booked: Number(event?.capacity.booked)},
           }),
         })
         router.push('/admin/events');

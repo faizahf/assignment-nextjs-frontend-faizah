@@ -1,11 +1,17 @@
+import Button from "@/components/Button/Button";
 import useFetch from "@/hooks/useFetch";
+import { RootState } from "@/stores/store";
 import { Purchase } from "@/types";
-import { formatRupiah } from "@/utils";
+import { formatRupiah, getDiscountByMembership } from "@/utils";
+import { useRouter } from "next/router";
 import React, { useEffect } from "react";
 import { MdOutlinePayments } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 function PurchaseHistoryPage() {
+  const router = useRouter();
   const { data: purchases, fetchData: fetchPurchases } = useFetch<Purchase[]>();
+  const loggedUser = useSelector((state: RootState) => state.user.data);
 
   useEffect(() => {
     fetchPurchases("purchases?_expand=event", {
@@ -71,6 +77,7 @@ function PurchaseHistoryPage() {
                   </div>
                 </div>
               ))}
+              
             <div className="flex gap-3 justify-end items-center border-t py-2">
               <p className="flex gap-2 items-center">
                 <MdOutlinePayments color="#7848F4" />
@@ -79,6 +86,9 @@ function PurchaseHistoryPage() {
               <p className="text-primary text-2xl">
                 {formatRupiah(purchase.paymentTotal)}
               </p>
+              {purchase.isPaid === false && 
+                <Button styles={"btn btn-primary bg-primary"} value={"Continue Payment"} funcOnClick={() => router.push(`purchase-history/${purchase.id}/payment`)}/>
+              }
             </div>
           </div>
         ))}

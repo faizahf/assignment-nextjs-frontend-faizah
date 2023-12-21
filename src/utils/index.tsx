@@ -34,3 +34,29 @@ export const getMembershipName = (memberNum: number): string => {
       return '';
   }
 }
+
+export const getDiscountByMembership = (memberNum: number): number => {
+  switch (memberNum) {
+    case 1:
+      return 10;
+    case 2:
+      return 15;
+    case 3:
+      return 20;
+    default:
+      return 0;
+  }
+}
+
+export const getDiscountPrice = (currentPrice: number, memberNum: number): number => {
+  switch (memberNum) {
+    case 1:
+      return currentPrice * 0.1;
+    case 2:
+      return currentPrice * 0.15;
+    case 3:
+      return currentPrice * 0.2;
+    default:
+      return currentPrice * 0;
+  }
+}

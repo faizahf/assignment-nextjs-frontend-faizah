@@ -66,7 +66,7 @@
       "password": "11111111",
       "role": "user",
       "membership": 2,
-      "balance": 650000,
+      "balance": 48000,
       "image": "",
       "id": 7
     },
@@ -75,8 +75,8 @@
       "email": "ab@mail.com",
       "password": "11111111",
       "role": "user",
-      "membership": 1,
-      "balance": 0,
+      "membership": 3,
+      "balance": 250000,
       "image": "",
       "id": 8
     }
@@ -88,14 +88,24 @@
       "eventId": 1
     },
     {
-      "userId": 7,
-      "eventId": 1,
-      "id": 3
-    },
-    {
       "userId": 6,
       "eventId": 1,
       "id": 8
+    },
+    {
+      "userId": 7,
+      "eventId": 2,
+      "id": 9
+    },
+    {
+      "userId": 7,
+      "eventId": 3,
+      "id": 10
+    },
+    {
+      "userId": 7,
+      "eventId": "1",
+      "id": 11
     }
   ],
   "events": [
@@ -106,12 +116,12 @@
       "date": "2023-12-23",
       "startTime": "20:00",
       "duration": "1",
-      "price": "250000",
+      "price": 250000,
       "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702950907/ynrkvummigdzks3r2xho.png",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum. ",
       "capacity": {
         "total": 10,
-        "booked": 0
+        "booked": 2
       },
       "id": 1
     },
@@ -128,7 +138,7 @@
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum.",
       "capacity": {
         "total": 10,
-        "booked": 0
+        "booked": 2
       }
     },
     {
@@ -139,7 +149,7 @@
       "date": "2023-12-19",
       "startTime": "10:00",
       "duration": 1,
-      "price": "300000",
+      "price": 300000,
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/0a/62/c0/getlstd-property-photo.jpg?w=1200&h=-1&s=1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum",
       "capacity": {
@@ -155,7 +165,7 @@
       "date": "2023-12-19",
       "startTime": "16:00",
       "duration": 1,
-      "price": "400000",
+      "price": 400000,
       "image": "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/0a/62/c0/getlstd-property-photo.jpg?w=1200&h=-1&s=1",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum.",
       "capacity": {
@@ -339,7 +349,7 @@
           }
         }
       ],
-      "isPaid": false,
+      "isPaid": true,
       "paymentTotal": 250000,
       "id": 8
     },
@@ -475,6 +485,241 @@
       "isPaid": true,
       "paymentTotal": 200000,
       "id": 13
+    },
+    {
+      "userId": 7,
+      "eventId": 1,
+      "purchaseDate": "2023-12-21T06:43:19.308Z",
+      "merchandises": [],
+      "isPaid": true,
+      "paymentTotal": 200000,
+      "id": 14
+    },
+    {
+      "userId": 7,
+      "eventId": 1,
+      "purchaseDate": "2023-12-21T06:44:22.538Z",
+      "merchandises": [
+        {
+          "merch": {
+            "id": 4,
+            "stock": 10,
+            "price": 250000,
+            "image": "",
+            "name": "White pan",
+            "description": "akjhksjadf",
+            "eventId": 11,
+            "qty": 1
+          }
+        }
+      ],
+      "isPaid": false,
+      "paymentTotal": 550000,
+      "id": 15
+    },
+    {
+      "userId": 7,
+      "eventId": 1,
+      "purchaseDate": "2023-12-21T06:52:27.658Z",
+      "merchandises": [
+        {
+          "merch": {
+            "id": 1,
+            "stock": 20,
+            "price": 50000,
+            "image": "",
+            "name": "clay",
+            "description": "lorem ipsum dolor sit amet",
+            "eventId": 2,
+            "qty": 2
+          }
+        }
+      ],
+      "isPaid": false,
+      "paymentTotal": 300000,
+      "id": 16
+    },
+    {
+      "userId": 7,
+      "eventId": 1,
+      "purchaseDate": "2023-12-21T06:55:29.243Z",
+      "merchandises": [
+        {
+          "merch": {
+            "id": 2,
+            "stock": 10,
+            "price": 50000,
+            "image": "",
+            "name": "paint brush",
+            "description": "lorem ipsum dolor sit amet",
+            "eventId": 1,
+            "qty": 2
+          }
+        }
+      ],
+      "isPaid": false,
+      "paymentTotal": 350000,
+      "id": 17
+    },
+    {
+      "userId": 7,
+      "eventId": "3",
+      "purchaseDate": "2023-12-21T06:57:49.966Z",
+      "merchandises": [],
+      "isPaid": false,
+      "paymentTotal": 300000,
+      "id": 18
+    },
+    {
+      "userId": 7,
+      "eventId": "11",
+      "purchaseDate": "2023-12-21T06:58:17.868Z",
+      "merchandises": [
+        {
+          "merch": {
+            "id": 4,
+            "stock": 10,
+            "price": 250000,
+            "image": "",
+            "name": "White pan",
+            "description": "akjhksjadf",
+            "eventId": 11,
+            "qty": 1
+          }
+        }
+      ],
+      "isPaid": false,
+      "paymentTotal": 550000,
+      "id": 19
+    },
+    {
+      "userId": 7,
+      "eventId": "13",
+      "purchaseDate": "2023-12-21T07:09:03.422Z",
+      "merchandises": [],
+      "isPaid": true,
+      "paymentTotal": 1000,
+      "id": 20
+    },
+    {
+      "userId": 7,
+      "eventId": "4",
+      "purchaseDate": "2023-12-21T07:22:10.568Z",
+      "merchandises": [
+        {
+          "merch": {
+            "id": 3,
+            "stock": 15,
+            "price": 50000,
+            "image": "",
+            "name": "acrylic paint",
+            "description": "lorem ipsum dolor sit amet",
+            "eventId": 4,
+            "qty": 9
+          }
+        }
+      ],
+      "isPaid": false,
+      "paymentTotal": 850000,
+      "id": 21
+    },
+    {
+      "userId": 7,
+      "eventId": "2",
+      "purchaseDate": "2023-12-21T07:23:32.596Z",
+      "merchandises": [
+        {
+          "merch": {
+            "id": 1,
+            "stock": 20,
+            "price": 50000,
+            "image": "",
+            "name": "clay",
+            "description": "lorem ipsum dolor sit amet",
+            "eventId": 2,
+            "qty": 6
+          }
+        }
+      ],
+      "isPaid": false,
+      "paymentTotal": 500000,
+      "id": 22
+    },
+    {
+      "userId": 7,
+      "eventId": "14",
+      "purchaseDate": "2023-12-21T07:54:59.122Z",
+      "merchandises": [],
+      "isPaid": false,
+      "paymentTotal": 100000,
+      "id": 23
+    },
+    {
+      "userId": 7,
+      "eventId": "1",
+      "purchaseDate": "2023-12-21T08:22:25.706Z",
+      "merchandises": [],
+      "isPaid": false,
+      "paymentTotal": 250000,
+      "id": 24
+    },
+    {
+      "userId": 7,
+      "eventId": "1",
+      "purchaseDate": "2023-12-21T08:22:54.667Z",
+      "merchandises": [],
+      "isPaid": false,
+      "paymentTotal": 250000,
+      "id": 25
+    },
+    {
+      "userId": 7,
+      "eventId": "1",
+      "purchaseDate": "2023-12-21T08:23:53.994Z",
+      "merchandises": [],
+      "isPaid": false,
+      "paymentTotal": 250000,
+      "id": 26
+    },
+    {
+      "userId": 7,
+      "eventId": "1",
+      "purchaseDate": "2023-12-21T08:41:28.434Z",
+      "merchandises": [
+        {
+          "merch": {
+            "id": 2,
+            "stock": 10,
+            "price": 50000,
+            "image": "",
+            "name": "paint brush",
+            "description": "lorem ipsum dolor sit amet",
+            "eventId": 1,
+            "qty": 1
+          }
+        }
+      ],
+      "isPaid": false,
+      "paymentTotal": 300000,
+      "id": 27
+    },
+    {
+      "userId": 7,
+      "eventId": "2",
+      "purchaseDate": "2023-12-21T08:49:53.755Z",
+      "merchandises": [],
+      "isPaid": false,
+      "paymentTotal": 200000,
+      "id": 28
+    },
+    {
+      "userId": 7,
+      "eventId": "2",
+      "purchaseDate": "2023-12-21T10:30:49.347Z",
+      "merchandises": [],
+      "isPaid": false,
+      "paymentTotal": 170000,
+      "id": 29
     }
   ]
 }
