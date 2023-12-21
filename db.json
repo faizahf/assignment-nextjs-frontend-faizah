@@ -41,16 +41,6 @@
       "id": 4
     },
     {
-      "name": "tess",
-      "email": "tesss@mail.com",
-      "password": "00000000",
-      "role": "user",
-      "membership": 1,
-      "balance": 0,
-      "image": "",
-      "id": 5
-    },
-    {
       "name": "coba",
       "email": "coba@mail.com",
       "password": "11111111",
@@ -69,16 +59,6 @@
       "balance": 448000,
       "image": "",
       "id": 7
-    },
-    {
-      "name": "ab",
-      "email": "ab@mail.com",
-      "password": "11111111",
-      "role": "user",
-      "membership": 3,
-      "balance": 250000,
-      "image": "",
-      "id": 8
     }
   ],
   "bookmarks": [
