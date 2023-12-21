@@ -49,7 +49,7 @@ function EventDetail() {
                 </div>
                 <div className="flex justify-between">
                   <h6>Time</h6>
-                  <h6>{event.time}</h6>
+                  <h6>{event.startTime}</h6>
                 </div>
                 <div className="flex justify-between">
                   <h6>Price</h6>

@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import useFetch from "@/hooks/useFetch";
-import { User } from "@/types";
+import { SignupForm, User } from "@/types";
+import { registerOptions } from "@/validations/auth";
 
 function Signup() {
   const router = useRouter();
@@ -36,7 +37,9 @@ function Signup() {
     handleSubmit,
     formState: { errors },
     watch,
-  } = useForm();
+  } = useForm<SignupForm>();
+
+  const signupOptions = registerOptions(watch);
 
   const handleRegistration = (data: any) => {
     if (isUserRegistered(data)) {
@@ -54,44 +57,16 @@ function Signup() {
         email: data.email,
         password: data.password,
         role: "user",
-        membership: 1,
+        membership: 0,
         balance: 0,
         image: "",
     }),
     });
     router.push("/auth/login");
   };
-  const handleError = (errors) => {};
+  const handleError = (errors: any) => {};
 
-  const registerOptions = {
-    name: { required: "Name is required" },
-    email: {
-      required: "Email is required",
-      pattern: {
-        value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-        message: "Email is not valid"
-      }
-    },
-    password: {
-      required: "Password is required",
-      minLength: {
-        value: 8,
-        message: "Password must have at least 8 characters",
-      },
-    },
-    confirmPassword: {
-      required: "Confirm password is required",
-      minLength: {
-        value: 8,
-        message: "Password must have at least 8 characters",
-      },
-      validate: (val: string) => {
-        if (watch("password") != val) {
-          return "Your passwords do no match";
-        }
-      },
-    },
-  };
+  const watchConfirmPassword = watch("confirmPassword", "password");
 
   return (
     <>
@@ -139,10 +114,10 @@ function Signup() {
                     type="text"
                     placeholder="Your full name here.."
                     className="block form-input border rounded w-full p-2.5 placeholder-secondary-text"
-                    {...register("name", registerOptions.name)}
+                    {...register("name", signupOptions.name)}
                   />
                   <small className="text-red-700">
-                    {errors?.name && errors.name.message}
+                    {errors.name && errors.name.message}
                   </small>
                 </div>
                 <div className="my-5">
@@ -153,10 +128,10 @@ function Signup() {
                     type="email"
                     placeholder="Your email here.."
                     className="block form-input border rounded w-full p-2.5 placeholder-secondary-text"
-                    {...register("email", registerOptions.email)}
+                    {...register("email", signupOptions.email)}
                   />
                   <small className="text-red-700">
-                    {errors?.email && errors.email.message}
+                    {errors.email && errors.email.message}
                   </small>
                 </div>
                 <div className="my-5">
@@ -167,10 +142,10 @@ function Signup() {
                     type="password"
                     placeholder="Your password here.."
                     className="block form-input border rounded w-full p-2.5 placeholder-secondary-text"
-                    {...register("password", registerOptions.password)}
+                    {...register("password", signupOptions.password)}
                   />
                   <small className="text-red-700">
-                    {errors?.password && errors.password.message}
+                    {errors.password && errors.password.message}
                   </small>
                 </div>
                 <div className="my-5">
@@ -183,12 +158,14 @@ function Signup() {
                     className="block form-input border rounded w-full p-2.5 placeholder-secondary-text"
                     {...register(
                       "confirmPassword",
-                      registerOptions.confirmPassword
+                      signupOptions.confirmPassword
                     )}
                   />
-                  <small className="text-red-700">
-                    {errors?.confirmPassword && errors.confirmPassword.message}
-                  </small>
+                  {watchConfirmPassword &&
+                    <small className="text-red-700">
+                      {errors.confirmPassword && errors.confirmPassword.message}
+                    </small>
+                  }
                 </div>
 
                 <button

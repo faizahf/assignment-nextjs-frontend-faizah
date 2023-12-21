@@ -1,5 +1,6 @@
 import useFetch from "@/hooks/useFetch";
-import { Event } from "@/types";
+import { Event, EventForm } from "@/types";
+import { eventOptions } from "@/validations/event";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -8,15 +9,15 @@ function EditEventPage() {
     const router = useRouter();
   const id = router.query.eventId;
     const today = new Date().toISOString().split('T')[0];
-    const { data: event, fetchData: fetchEvent } = useFetch<Event>();
+    const { data: event, fetchData: fetchEvent } = useFetch<EventForm>();
     const { fetchData: updateEvent } = useFetch<Event>();
     const {
         register,
         handleSubmit,
         formState: { errors },
         getValues
-      } = useForm({ values: { event } });
-    const [ image, setImage ] = useState("");
+      } = useForm<EventForm>({ values: event as EventForm });
+    const [ image, setImage ] = useState<File | null>();
     const [ url, setUrl ] = useState("");
 
     useEffect(() => {
@@ -62,110 +63,21 @@ function EditEventPage() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              name: data.event?.name,
-              category: Number(data.event?.category),
-              location: data.event?.location,
-              date: data.event?.date,
-              startTime: data.event?.startTime,
-              duration: data.event?.duration,
-              price: data.event?.price,
+              name: data.name,
+              category: Number(data.category),
+              location: data.location,
+              date: data.date,
+              startTime: data.startTime,
+              duration: data.duration,
+              price: data.price,
               image: url,
-              description: data.event?.description,
-              capacity: {total: data.event?.capacity.total, booked: event?.capacity.booked},
+              description: data.description,
+              capacity: {total: data.capacity.total, booked: event?.capacity.booked},
           }),
         })
         router.push('/admin/events');
     }
     const handleError = (errors: any) => {};
-
-    const editEventOptions = {
-        name: {
-            required: "Event name is required",
-            minLength: {
-                value: 5,
-                message: "Event name must have at least 5 characters",
-            },
-            pattern: {
-                value: /^(?=\S)(.{5,})$/,
-                message: "Input can't only contains or starts with blank space"
-            },
-        },
-        category: {
-          required: "Category is required",
-        },
-        location: { 
-            required: "Event location is required",
-            minLength: {
-                value: 5,
-                message: "Event location must have at least 5 characters",
-            },
-            pattern: {
-                value: /^(?=\S)(.{5,})$/,
-                message: "Input can't only contains or starts with blank space"
-            },
-        },
-        price: {
-          required: "Price is required",
-          type: Number,
-          min: {
-            value: 100,
-            message: "Minimum price is Rp 100",
-        },
-          max: {
-            value: 999999999,
-            message: "Maximum price is Rp 999,999,999"
-        }
-        },
-        capacity: {
-          required: "Capacity is required",
-          type: Number,
-          min: {
-            value: 1,
-            message: "Minimum capacity is 1",
-        },
-          max: {
-            value: 999,
-            message: "Maximum capacity is 999",
-        }
-        },
-        date: {
-            required: "Date is required",
-        },
-        startTime: {
-            required: "Event date is required",
-        },
-        duration: {
-            required: "Duration is required",
-            min: {
-              value: 1,
-              message: "Minimum duration is 1 hour"
-            },
-            max: {
-              value: 8,
-              message: "Maximum duration is 8 hour"
-            }
-        },
-        image: {
-            required: false,
-        },
-        description: {
-            required: "Description is required",
-            minLength: {
-                value: 5,
-                message: "Description must have at least 5 characters",
-            },
-            maxLength: {
-                value: 700,
-                message: "Description must have maximum 500 characters",
-            },
-            pattern: {
-                value: /^(?=\S)(.{5,})$/,
-                message: "Input can't only contains or starts with blank space"
-            },
-        },
-        
-        
-      };
 
   return (
     <>
@@ -181,10 +93,10 @@ function EditEventPage() {
               type="text"
               placeholder="Enter event name"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("event.name", editEventOptions.name)}
+              {...register("name", eventOptions.name)}
             />
             <small className="text-red-700">
-                {errors.event?.name && errors.event?.name.message}
+                {errors.name && errors.name.message}
             </small>
           </div>
           <div className="col-span-3">
@@ -194,7 +106,7 @@ function EditEventPage() {
             <select
               placeholder="Enter event category"
               className="block form-input border rounded-lg w-full p-2.5 bg-white"
-              {...register("event.category", editEventOptions.category)}
+              {...register("category", eventOptions.category)}
             >
               <option value={0}>Choose event category</option>
               <option value={1}>Art</option>
@@ -204,7 +116,7 @@ function EditEventPage() {
               <option value={5}>Development</option>
             </select>
             <small className="text-red-700">
-                {errors.event?.location && errors.event?.location.message}
+                {errors.location && errors.location.message}
             </small>
           </div>
           <div className="col-span-6 row-start-2">
@@ -215,10 +127,10 @@ function EditEventPage() {
               type="text"
               placeholder="Enter event location"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("event.location", editEventOptions.location)}
+              {...register("location", eventOptions.location)}
             />
             <small className="text-red-700">
-                {errors.event?.location && errors.event?.location.message}
+                {errors.location && errors.location.message}
             </small>
           </div>
           <div className="col-span-3 row-start-3">
@@ -229,10 +141,10 @@ function EditEventPage() {
               type="number"
               placeholder="Enter price"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("event.price", editEventOptions.price)}
+              {...register("price", eventOptions.price)}
             />
             <small className="text-red-700">
-                {errors.event?.price && errors.event?.price.message}
+                {errors.price && errors.price.message}
             </small>
           </div>
           <div className="col-span-3 col-start-4 row-start-3">
@@ -243,10 +155,10 @@ function EditEventPage() {
               type="number"
               placeholder="Enter total capacity"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("event.capacity.total", editEventOptions.capacity)}
+              {...register("capacity.total", eventOptions.capacity)}
             />
             <small className="text-red-700">
-                {errors.event?.capacity && errors.event?.capacity.message}
+                {errors.capacity && errors.capacity.message}
             </small>
           </div>
           <div className="col-span-2 row-start-4">
@@ -257,11 +169,11 @@ function EditEventPage() {
               type="date"
               placeholder="Enter event date"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("event.date", editEventOptions.date)}
+              {...register("date", eventOptions.date)}
               min={today}
             />
             <small className="text-red-700">
-                {errors.event?.date && errors.event?.date.message}
+                {errors.date && errors.date.message}
             </small>
           </div>
           <div className="col-span-2 col-start-3 row-start-4">
@@ -272,10 +184,10 @@ function EditEventPage() {
               type="time"
               placeholder="Enter start time"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("event.startTime", editEventOptions.startTime)}
+              {...register("startTime", eventOptions.startTime)}
             />
             <small className="text-red-700">
-                {errors.event?.startTime && errors.event?.startTime.message}
+                {errors.startTime && errors.startTime.message}
             </small>
           </div>
           <div className="col-span-2 col-start-5 row-start-4">
@@ -287,13 +199,13 @@ function EditEventPage() {
                 type="number"
                 placeholder="Enter duration"
                 className="block form-input border rounded-lg w-full p-2.5"
-                {...register("event.duration", editEventOptions.duration)}
+                {...register("duration", eventOptions.duration)}
               />
               <span className="block absolute right-1 top-0.5 bg-white p-2 rounded-lg">hour</span>
             </div>
 
             <small className="text-red-700">
-                {errors.event?.duration && errors.event?.duration.message}
+                {errors.duration && errors.duration.message}
             </small>
           </div>
           <div className="col-span-6 row-start-5">
@@ -304,12 +216,12 @@ function EditEventPage() {
               type="file"
               placeholder="Enter image"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("event.image", editEventOptions.image)}
-              onChange= {(e)=> setImage(e.target.files[0])}
+              {...register("image", eventOptions.image)}
+              onChange={(e) => setImage(e.target.files ? e.target.files[0] : null)}
             />
             <img src={`${event?.image}`} width={100} />
             <small className="text-red-700">
-                {errors.event?.image && errors.event?.image.message}
+                {errors.image && errors.image.message}
             </small>
           </div>
           <div className="col-span-6 row-start-6">
@@ -320,10 +232,10 @@ function EditEventPage() {
               placeholder="Enter description"
               rows={5}
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("event.description", editEventOptions.description)}
+              {...register("description", eventOptions.description)}
             ></textarea>
             <small className="text-red-700">
-                {errors.event?.description && errors.event?.description.message}
+                {errors.description && errors.description.message}
             </small>
           </div>
           <div className="col-span-6">

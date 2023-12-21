@@ -53,7 +53,7 @@ function MerchandisePage() {
     }
   }
 
-  const getQtyMerch = (merchId: number): number | undefined => {
+  const getQtyMerch = (merchId: number): number => {
     const qty = merchandises.find(data => {return data.merch.id === merchId})?.merch.qty
     if (qty !== undefined) {
       return qty;

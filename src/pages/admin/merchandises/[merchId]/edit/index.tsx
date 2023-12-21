@@ -1,5 +1,6 @@
 import useFetch from '@/hooks/useFetch';
-import { Event, Merchandise } from '@/types';
+import { Event, Merchandise, MerchandiseForm } from '@/types';
+import { merchandiseOptions } from '@/validations/merchandise';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form';
@@ -15,8 +16,8 @@ function EditMerchandisePage() {
         handleSubmit,
         formState: { errors },
         getValues
-      } = useForm({ values: { merchandise } });
-    const [ image, setImage ] = useState("");
+      } = useForm<MerchandiseForm>({ values: merchandise as MerchandiseForm });
+    const [ image, setImage ] = useState<File | null>();
     const [ url, setUrl ] = useState("");
 
     useEffect(() => {
@@ -44,76 +45,17 @@ function EditMerchandisePage() {
               "Content-Type": "application/json",
             },
             body: JSON.stringify({
-              name: data.merchandise?.name,
-              eventId: Number(data.merchandise?.eventId),
-              price: Number(data.merchandise?.price),
-              stock: Number(data.merchandise?.stock),
+              name: data.name,
+              eventId: Number(data.eventId),
+              price: Number(data.price),
+              stock: Number(data.stock),
               image: url,
-              description: data.merchandise?.description,
+              description: data.description,
           }),
         })
         router.push('/admin/merchandises');
     }
     const handleError = (errors: any) => {};
-
-    const editMerchandiseOptions = {
-        name: {
-          required: "Merchandise name is required",
-          minLength: {
-            value: 5,
-            message: "Merchandise name must have at least 5 characters",
-          },
-          pattern: {
-            value: /^(?=\S)(.{5,})$/,
-            message: "Input can't only contains or starts with blank space",
-          },
-        },
-        eventId: {
-          required: "Event is required",
-        },
-        price: {
-          required: "Price is required",
-          type: Number,
-          min: {
-            value: 100,
-            message: "Minimum price is Rp 100",
-          },
-          max: {
-            value: 999999999,
-            message: "Maximum price is Rp 999,999,999",
-          },
-        },
-        stock: {
-          required: "Stock is required",
-          type: Number,
-          min: {
-            value: 1,
-            message: "Minimum stock is 1",
-          },
-          max: {
-            value: 999,
-            message: "Maximum stock is 999",
-          },
-        },
-        image: {
-          required: false,
-        },
-        description: {
-          required: "Description is required",
-          minLength: {
-            value: 5,
-            message: "Description must have at least 5 characters",
-          },
-          maxLength: {
-            value: 500,
-            message: "Description must have maximum 500 characters",
-          },
-          pattern: {
-            value: /^(?=\S)(.{5,})$/,
-            message: "Input can't only contains or starts with blank space",
-          },
-        },
-      };
 
   return (
     <>
@@ -129,10 +71,10 @@ function EditMerchandisePage() {
             type="text"
             placeholder="Enter event name"
             className="block form-input border rounded-lg w-full p-2.5"
-            {...register("merchandise.name", editMerchandiseOptions.name)}
+            {...register("name", merchandiseOptions.name)}
           />
           <small className="text-red-700">
-            {errors.merchandise?.name && errors.merchandise.name.message}
+            {errors.name && errors.name.message}
           </small>
         </div>
         <div>
@@ -141,7 +83,7 @@ function EditMerchandisePage() {
           </label>
           <select
             className="block form-input border rounded-lg w-full p-2.5 bg-white"
-            {...register("merchandise.eventId", editMerchandiseOptions.eventId)}
+            {...register("eventId", merchandiseOptions.eventId)}
           >
             <option value={0}>Choose event</option>
             {eventList && eventList.map((event) => (
@@ -149,7 +91,7 @@ function EditMerchandisePage() {
             ))}
           </select>
           <small className="text-red-700">
-              {errors.merchandise?.eventId && errors.merchandise.eventId.message}
+              {errors.eventId && errors.eventId.message}
           </small>
         </div>
         <div>
@@ -160,10 +102,10 @@ function EditMerchandisePage() {
             type="number"
             placeholder="Enter price"
             className="block form-input border rounded-lg w-full p-2.5"
-            {...register("merchandise.price", editMerchandiseOptions.price)}
+            {...register("price", merchandiseOptions.price)}
           />
           <small className="text-red-700">
-              {errors.merchandise?.price && errors.merchandise.price.message}
+              {errors.price && errors.price.message}
           </small>
         </div>
         <div>
@@ -174,10 +116,10 @@ function EditMerchandisePage() {
             type="number"
             placeholder="Enter merchandise stock"
             className="block form-input border rounded-lg w-full p-2.5"
-            {...register("merchandise.stock", editMerchandiseOptions.stock)}
+            {...register("stock", merchandiseOptions.stock)}
           />
           <small className="text-red-700">
-              {errors.merchandise?.stock && errors.merchandise.stock.message}
+              {errors.stock && errors.stock.message}
           </small>
         </div>
         <div className="col-span-2">
@@ -188,11 +130,11 @@ function EditMerchandisePage() {
             type="file"
             placeholder="Enter image"
             className="block form-input border rounded-lg w-full p-2.5"
-            {...register("merchandise.image", editMerchandiseOptions.image)}
-            onChange= {(e)=> setImage(e.target.files[0])}
+            {...register("image", merchandiseOptions.image)}
+            onChange= {(e)=> setImage(e.target.files ? e.target.files[0] : null)}
           />
           <small className="text-red-700">
-              {errors.merchandise?.image && errors.merchandise.image.message}
+              {errors.image && errors.image.message}
           </small>
         </div>
         <div className="col-span-2 row-start-4">
@@ -203,10 +145,10 @@ function EditMerchandisePage() {
             placeholder="Enter description"
             rows={5}
             className="block form-input border rounded-lg w-full p-2.5"
-            {...register("merchandise.description", editMerchandiseOptions.description)}
+            {...register("description", merchandiseOptions.description)}
           ></textarea>
           <small className="text-red-700">
-              {errors.merchandise?.description && errors.merchandise.description.message}
+              {errors.description && errors.description.message}
           </small>
         </div>
       </div>

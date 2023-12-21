@@ -14,15 +14,17 @@ function BookmarksPage() {
   } = useFetch<Bookmark[]>();
   
   useEffect(() => {
-    fetchBookmarkedEventsByUser(
-      `bookmarks?userId=${loggedUser.id}&_expand=event`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    if (loggedUser) {
+      fetchBookmarkedEventsByUser(
+        `bookmarks?userId=${loggedUser.id}&_expand=event`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
   }, [])
 
   return (

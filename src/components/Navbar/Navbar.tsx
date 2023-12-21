@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-sync-scripts */
 import { removeUser } from '@/stores/slices/user/userSlice';
 import { RootState } from '@/stores/store';
 import { removeAuthToken } from '@/utils/cookie';
@@ -10,6 +9,7 @@ import { useDispatch } from 'react-redux';
 import { FcMindMap } from "react-icons/fc";
 import { useRouter } from 'next/router';
 import { formatRupiah } from '@/utils';
+import Script from 'next/script';
 
 function Navbar() {
     const dispatch = useDispatch();
@@ -26,7 +26,6 @@ function Navbar() {
     <>
         <Head>
             <link rel="stylesheet" href="https://unpkg.com/flowbite@1.5.1/dist/flowbite.min.css" />
-            <script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js"></script>
         </Head>   
         <nav className="bg-dark border-gray-200">
             <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
@@ -81,6 +80,7 @@ function Navbar() {
             </div>
         </nav>
 
+        <Script src="https://unpkg.com/flowbite@1.5.1/dist/flowbite.js" />
     </>
   )
 }

@@ -10,6 +10,7 @@ export type User = {
 };
 
 export type Event = {
+  event: any;
   id: number;
   name: string;
   category: number;
@@ -70,3 +71,46 @@ export type Bookmark = {
   eventId: number;
   event?: Event;
 };
+
+export type EventForm = {
+  name: string,
+  category: number,
+  location: string,
+  date: string,
+  startTime: string,
+  duration: number,
+  price: number,
+  image: string,
+  description: string,
+  capacity: Capacity,
+}
+
+export type MerchandiseForm = {
+  name: string;
+  eventId: number;
+  price: number;
+  stock: number;
+  image: string;  
+  description: string;
+}
+
+export type LoginForm = {
+  email: string;
+  password: string;
+}
+
+export type SignupForm = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+  role: string;
+  membership: number;
+  balance: number;
+  image: string;
+}
+
+export type TopupForm = {
+  source: number;
+  amount: number;
+}

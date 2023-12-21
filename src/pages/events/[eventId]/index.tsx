@@ -29,17 +29,19 @@ function EventDetail() {
   }, [id]);
 
   const checkBookmarkStatus = async () => {
-    fetchBookmarked(`bookmarks?userId=${loggedUser.id}&eventId=${id}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    if (loggedUser) {
+      fetchBookmarked(`bookmarks?userId=${loggedUser.id}&eventId=${id}`, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
     }
+  }
 
   useEffect(() => {
     checkBookmarkStatus();
-  }, [event, loggedUser.id, deletedBookmark, addedBookmark]);
+  }, [event, loggedUser, deletedBookmark, addedBookmark]);
 
   useEffect(() => {
     if (bookmarkedEvent) {

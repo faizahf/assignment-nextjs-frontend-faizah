@@ -69,6 +69,16 @@
       "balance": 650000,
       "image": "",
       "id": 7
+    },
+    {
+      "name": "ab",
+      "email": "ab@mail.com",
+      "password": "11111111",
+      "role": "user",
+      "membership": 1,
+      "balance": 0,
+      "image": "",
+      "id": 8
     }
   ],
   "bookmarks": [
@@ -93,10 +103,10 @@
       "name": "Pottery workshop 1",
       "category": 1,
       "location": "Jalan Mega Kuningan",
-      "date": "2023-12-19",
-      "startTime": "16:00",
+      "date": "2023-12-23",
+      "startTime": "20:00",
       "duration": "1",
-      "price": "200000",
+      "price": "250000",
       "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1702950907/ynrkvummigdzks3r2xho.png",
       "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec egestas a nibh volutpat varius. Donec scelerisque eu metus consequat tincidunt. Integer a justo eget tellus venenatis auctor vel sed urna. In vitae nibh porta, volutpat velit eu, aliquam dui. Quisque tincidunt pretium vehicula. Nunc ut molestie nunc. Cras in metus ac tortor fringilla volutpat ut a leo. Nam gravida ante dolor, nec vehicula augue fermentum at. Fusce non enim tristique, efficitur ligula vitae, aliquam ipsum. ",
       "capacity": {
@@ -253,12 +263,12 @@
   "merchandises": [
     {
       "id": 1,
-      "stock": 10,
+      "stock": 20,
       "price": 50000,
-      "image": "https://www.shutterstock.com/image-photo/natural-clay-piece-isolated-on-600nw-2223360733.jpg",
+      "image": "",
       "name": "clay",
       "description": "lorem ipsum dolor sit amet",
-      "eventId": 1
+      "eventId": 2
     },
     {
       "id": 2,

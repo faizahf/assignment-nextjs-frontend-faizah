@@ -1,5 +1,6 @@
 import useFetch from "@/hooks/useFetch";
-import { Event, Merchandise } from "@/types";
+import { Event, Merchandise, MerchandiseForm } from "@/types";
+import { merchandiseOptions } from "@/validations/merchandise";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -8,8 +9,8 @@ function AddMerchandisePage() {
   const router = useRouter();
   const { data: eventList, fetchData: fetchEventList } = useFetch<Event[]>();
   const { fetchData: postMerchandise } = useFetch<Merchandise>();
-  const { register, handleSubmit, formState: { errors }} = useForm();
-  const [ image, setImage ] = useState("");
+  const { register, handleSubmit, formState: { errors }} = useForm<MerchandiseForm>();
+  const [ image, setImage ] = useState<File | null>();
   const [ url, setUrl ] = useState("");
 
   useEffect(() => {
@@ -66,64 +67,7 @@ function AddMerchandisePage() {
   }
   const handleError = (errors: any) => {};
   
-  const addMerchandiseOptions = {
-    name: {
-      required: "Merchandise name is required",
-      minLength: {
-        value: 5,
-        message: "Merchandise name must have at least 5 characters",
-      },
-      pattern: {
-        value: /^(?=\S)(.{5,})$/,
-        message: "Input can't only contains or starts with blank space",
-      },
-    },
-    eventId: {
-      required: "Event is required",
-    },
-    price: {
-      required: "Price is required",
-      type: Number,
-      min: {
-        value: 100,
-        message: "Minimum price is Rp 100",
-      },
-      max: {
-        value: 999999999,
-        message: "Maximum price is Rp 999,999,999",
-      },
-    },
-    stock: {
-      required: "Stock is required",
-      type: Number,
-      min: {
-        value: 1,
-        message: "Minimum stock is 1",
-      },
-      max: {
-        value: 999,
-        message: "Maximum stock is 999",
-      },
-    },
-    image: {
-      required: "Image is required",
-    },
-    description: {
-      required: "Description is required",
-      minLength: {
-        value: 5,
-        message: "Description must have at least 5 characters",
-      },
-      maxLength: {
-        value: 500,
-        message: "Description must have maximum 500 characters",
-      },
-      pattern: {
-        value: /^(?=\S)(.{5,})$/,
-        message: "Input can't only contains or starts with blank space",
-      },
-    },
-  };
+
 
   return (
     <>
@@ -139,7 +83,7 @@ function AddMerchandisePage() {
               type="text"
               placeholder="Enter event name"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("name", addMerchandiseOptions.name)}
+              {...register("name", merchandiseOptions.name)}
             />
             <small className="text-red-700">
               {errors.name && errors.name.message}
@@ -151,7 +95,7 @@ function AddMerchandisePage() {
             </label>
             <select
               className="block form-input border rounded-lg w-full p-2.5 bg-white"
-              {...register("eventId", addMerchandiseOptions.eventId)}
+              {...register("eventId", merchandiseOptions.eventId)}
             >
               <option value={0}>Choose event</option>
               {eventList && eventList.map((event) => (
@@ -170,7 +114,7 @@ function AddMerchandisePage() {
               type="number"
               placeholder="Enter price"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("price", addMerchandiseOptions.price)}
+              {...register("price", merchandiseOptions.price)}
             />
             <small className="text-red-700">
                 {errors.price && errors.price.message}
@@ -184,7 +128,7 @@ function AddMerchandisePage() {
               type="number"
               placeholder="Enter merchandise stock"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("stock", addMerchandiseOptions.stock)}
+              {...register("stock", merchandiseOptions.stock)}
             />
             <small className="text-red-700">
                 {errors.stock && errors.stock.message}
@@ -198,8 +142,8 @@ function AddMerchandisePage() {
               type="file"
               placeholder="Enter image"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("image", addMerchandiseOptions.image)}
-              onChange= {(e)=> setImage(e.target.files[0])}
+              {...register("image", merchandiseOptions.image)}
+              onChange= {(e)=> setImage(e.target.files ? e.target.files[0] : null)}
             />
             <small className="text-red-700">
                 {errors.image && errors.image.message}
@@ -213,7 +157,7 @@ function AddMerchandisePage() {
               placeholder="Enter description"
               rows={5}
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("description", addMerchandiseOptions.description)}
+              {...register("description", merchandiseOptions.description)}
             ></textarea>
             <small className="text-red-700">
                 {errors.description && errors.description.message}

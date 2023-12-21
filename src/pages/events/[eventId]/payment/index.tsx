@@ -43,45 +43,49 @@ function PaymentPage() {
   };
 
   const decreaseBalance = () => {
-    const newBalance = loggedUser?.balance - getTotalPayment();
-    dispatch(updateBalance(newBalance));
-    fetchUser(`users/${loggedUser.id}`, {
-      method: 'PATCH', 
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        balance: newBalance,
-      }),
-    })
-  }
-
-  const handlePurchase = () => {
-    if (loggedUser?.balance - getTotalPayment() >= 0) {
-      fetchPurchase("purchases", {
-        method: "POST",
+    if (loggedUser) {
+      const newBalance = loggedUser.balance - getTotalPayment();
+      dispatch(updateBalance(newBalance));
+      fetchUser(`users/${loggedUser.id}`, {
+        method: 'PATCH', 
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          userId: loggedUser?.id,
-          eventId: 1,
-          purchaseDate: new Date(),
-          merchandises: merchandises,
-          isPaid: true,
-          paymentTotal: getTotalPayment(),
+          balance: newBalance,
         }),
+      })
+    }
+  }
+
+  const handlePurchase = () => {
+    if (loggedUser) {
+      if (loggedUser.balance - getTotalPayment() >= 0) {
+        fetchPurchase("purchases", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: loggedUser?.id,
+            eventId: 1,
+            purchaseDate: new Date(),
+            merchandises: merchandises,
+            isPaid: true,
+            paymentTotal: getTotalPayment(),
+          }),
+        });
+        decreaseBalance();
+        dispatch(resetMerchandise());
+        router.push("/");
+      } else {
+        toast.error('Your balance is not sufficicent!', {
+          position: toast.POSITION.TOP_CENTER,
+          autoClose: 2000,
+          theme: "light",
+          hideProgressBar: true,
       });
-      decreaseBalance();
-      dispatch(resetMerchandise());
-      router.push("/");
-    } else {
-      toast.error('Your balance is not sufficicent!', {
-        position: toast.POSITION.TOP_CENTER,
-        autoClose: 2000,
-        theme: "light",
-        hideProgressBar: true,
-    });
+      }
     }
   };
 

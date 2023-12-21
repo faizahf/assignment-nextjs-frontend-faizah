@@ -3,12 +3,13 @@ import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
 import useFetch from "@/hooks/useFetch";
-import { User } from "@/types";
+import { LoginForm, User } from "@/types";
 import { NextResponse } from "next/server";
 import { v4 as uuidv4 } from "uuid";
 import { setAuthToken } from "@/utils/cookie";
 import { useDispatch } from "react-redux";
 import { saveUser } from "@/stores/slices/user/userSlice";
+import { loginOptions } from "@/validations/auth";
 
 
 function Login() {
@@ -20,7 +21,7 @@ function Login() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<LoginForm>();
 
   useEffect(() => {
     fetchUsers("users", {
@@ -31,7 +32,7 @@ function Login() {
     });
   }, []);
 
-  const handleLogin = (data) => {
+  const handleLogin = (data: any) => {
     const registeredUser = checkUser(data);
     if (registeredUser) {
       setAuthToken("token", `skillup-${uuidv4()}`);
@@ -47,10 +48,10 @@ function Login() {
     }
   };
 
-  const handleError = (errors) => {};
+  const handleError = (errors: any) => {};
   const router = useRouter();
 
-  const checkUser = (data): User | null => {
+  const checkUser = (data: any): User | null => {
     if (users !== null) {
       for (const user of users) {
         if (user.email === data.email && user.password === data.password) {
@@ -59,23 +60,6 @@ function Login() {
       }
     }
     return null;
-  };
-
-  const registerOptions = {
-    email: {
-      required: "Email is required",
-      pattern: {
-        value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/,
-        message: "Email is not valid",
-      },
-    },
-    password: {
-      required: "Password is required",
-      minLength: {
-        value: 8,
-        message: "Password must have at least 8 characters",
-      },
-    },
   };
 
   return (
@@ -122,10 +106,10 @@ function Login() {
                     id="email"
                     placeholder="Your email here.."
                     className="block form-input border rounded w-full p-2.5 placeholder-[#666666]"
-                    {...register("email", registerOptions.email)}
+                    {...register("email", loginOptions.email)}
                   />
                   <small className="text-red-700">
-                    {errors?.email && errors.email.message}
+                    {errors.email && errors.email.message}
                   </small>
                 </div>
                 <div className="my-5">
@@ -140,10 +124,10 @@ function Login() {
                     id="password"
                     placeholder="Your password here.."
                     className="block form-input border rounded w-full p-2.5 placeholder-secondary-text"
-                    {...register("password", registerOptions.password)}
+                    {...register("password", loginOptions.password)}
                   />
                   <small className="text-red-700">
-                    {errors?.password && errors.password.message}
+                    {errors.password && errors.password.message}
                   </small>
                 </div>
 

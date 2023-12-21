@@ -2,8 +2,9 @@ import Modal from "@/components/Modal/Modal";
 import useFetch from "@/hooks/useFetch";
 import { updateBalance } from "@/stores/slices/user/userSlice";
 import { RootState } from "@/stores/store";
-import { User } from "@/types";
+import { TopupForm, User } from "@/types";
 import { formatRupiah, getMembershipName } from "@/utils";
+import { topupOptions } from "@/validations/topup";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -18,7 +19,7 @@ function ProfilePage() {
   const loggedUser = useSelector((state: RootState) => state.user.data);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { fetchData: updateUser } = useFetch<User>();
-  const {register, handleSubmit, formState: { errors }, reset} = useForm();
+  const {register, handleSubmit, formState: { errors }, reset} = useForm<TopupForm>();
 
   const handleTopUp = (data: any) => {
     updateUser(`users/${loggedUser?.id}`, {
@@ -45,23 +46,6 @@ function ProfilePage() {
   }
 
   const handleError = (errors: any) => {};
-
-  const topupOptions = {
-    source: {
-      required: "Source of funds is required",
-    },
-    amount: {
-      required: "Top up amount is required",
-      min: {
-        value: 50000,
-        message: "Top Up amount must be between Rp 50,000 - Rp 10,000,000",
-      },
-      max: {
-        value: 10000000,
-        message: "Top Up amount must be between Rp 50,000 - Rp 10,000,000",
-      },
-    },
-  };
 
   return (
     <>

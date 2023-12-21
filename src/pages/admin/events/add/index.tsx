@@ -1,5 +1,6 @@
 import useFetch from "@/hooks/useFetch";
-import { Event } from "@/types";
+import { Event, EventForm } from "@/types";
+import { eventOptions } from "@/validations/event";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -12,8 +13,8 @@ function AddEventPage() {
         register,
         handleSubmit,
         formState: { errors },
-      } = useForm();
-    const [ image, setImage ] = useState("");
+      } = useForm<EventForm>();
+    const [ image, setImage ] = useState<File | null>();
     const [ url, setUrl ] = useState("");
 
     const uploadImage = async () => {
@@ -65,94 +66,7 @@ function AddEventPage() {
     }
     const handleError = (errors: any) => {};
 
-    const addEventOptions = {
-        name: {
-            required: "Event name is required",
-            minLength: {
-                value: 5,
-                message: "Event name must have at least 5 characters",
-            },
-            pattern: {
-                value: /^(?=\S)(.{5,})$/,
-                message: "Input can't only contains or starts with blank space"
-            },
-        },
-        category: {
-          required: "Event name is required",
-        },
-        location: { 
-            required: "Event location is required",
-            minLength: {
-                value: 5,
-                message: "Event location must have at least 5 characters",
-            },
-            pattern: {
-                value: /^(?=\S)(.{5,})$/,
-                message: "Input can't only contains or starts with blank space"
-            },
-        },
-        price: {
-          required: "Price is required",
-          type: Number,
-          min: {
-            value: 100,
-            message: "Minimum price is Rp 100",
-        },
-          max: {
-            value: 999999999,
-            message: "Maximum price is Rp 999,999,999"
-        }
-        },
-        capacity: {
-          required: "Capacity is required",
-          type: Number,
-          min: {
-            value: 1,
-            message: "Minimum capacity is 1",
-        },
-          max: {
-            value: 999,
-            message: "Maximum capacity is 999",
-        }
-        },
-        date: {
-            required: "Date is required",
-        },
-        startTime: {
-            required: "Event date is required",
-        },
-        duration: {
-            required: "Duration is required",
-            min: {
-              value: 1,
-              message: "Minimum duration is 1 hour"
-            },
-            max: {
-              value: 8,
-              message: "Maximum duration is 8 hour"
-            }
-        },
-        image: {
-            required: "Image is required",
-        },
-        description: {
-            required: "Description is required",
-            minLength: {
-                value: 5,
-                message: "Description must have at least 5 characters",
-            },
-            maxLength: {
-                value: 500,
-                message: "Description must have maximum 500 characters",
-            },
-            pattern: {
-                value: /^(?=\S)(.{5,})$/,
-                message: "Input can't only contains or starts with blank space"
-            },
-        },
-        
-        
-      };
+
 
   return (
     <>
@@ -168,10 +82,10 @@ function AddEventPage() {
               type="text"
               placeholder="Enter event name"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("name", addEventOptions.name)}
+              {...register("name", eventOptions.name)}
             />
             <small className="text-red-700">
-                {errors.name && errors.name.message}
+              {errors.name && errors.name.message}
             </small>
           </div>
           <div className="col-span-3">
@@ -181,7 +95,7 @@ function AddEventPage() {
             <select
               placeholder="Enter event category"
               className="block form-input border rounded-lg w-full p-2.5 bg-white"
-              {...register("category", addEventOptions.category)}
+              {...register("category", eventOptions.category)}
             >
               <option value={0}>Choose event category</option>
               <option value={1}>Art</option>
@@ -191,7 +105,7 @@ function AddEventPage() {
               <option value={5}>Development</option>
             </select>
             <small className="text-red-700">
-                {errors.location && errors.location.message}
+                {errors.category && errors.category.message}
             </small>
           </div>
           <div className="col-span-6 row-start-2">
@@ -202,7 +116,7 @@ function AddEventPage() {
               type="text"
               placeholder="Enter event location"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("location", addEventOptions.location)}
+              {...register("location", eventOptions.location)}
             />
             <small className="text-red-700">
                 {errors.location && errors.location.message}
@@ -216,7 +130,7 @@ function AddEventPage() {
               type="number"
               placeholder="Enter price"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("price", addEventOptions.price)}
+              {...register("price", eventOptions.price)}
             />
             <small className="text-red-700">
                 {errors.price && errors.price.message}
@@ -230,7 +144,7 @@ function AddEventPage() {
               type="number"
               placeholder="Enter total capacity"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("capacity", addEventOptions.capacity)}
+              {...register("capacity", eventOptions.capacity)}
             />
             <small className="text-red-700">
                 {errors.capacity && errors.capacity.message}
@@ -244,7 +158,7 @@ function AddEventPage() {
               type="date"
               placeholder="Enter event date"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("date", addEventOptions.date)}
+              {...register("date", eventOptions.date)}
               min={today}
             />
             <small className="text-red-700">
@@ -259,7 +173,7 @@ function AddEventPage() {
               type="time"
               placeholder="Enter start time"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("startTime", addEventOptions.startTime)}
+              {...register("startTime", eventOptions.startTime)}
             />
             <small className="text-red-700">
                 {errors.startTime && errors.startTime.message}
@@ -269,19 +183,12 @@ function AddEventPage() {
             <label htmlFor="duration" className="mb-2">
               Duration
             </label>
-            {/* <div className="block rounded-lg w-full flex">
-
-              <input id='h' name='h' type='number' min='0' max='23' className="w-full p-2.5 border rounded-lg" />
-              <label htmlFor='h' className="p-2.5">hour</label>
-              <input id='m' name='m' type='number' min='0' max='59' className="w-full p-2.5 border rounded-lg"/>
-              <label htmlFor='m' className="p-2.5">minute</label>
-            </div> */}
             <div className="relative">
               <input
                 type="number"
                 placeholder="Enter duration"
                 className="block form-input border rounded-lg w-full p-2.5"
-                {...register("duration", addEventOptions.duration)}
+                {...register("duration", eventOptions.duration)}
               />
               <span className="block absolute right-1 top-0.5 bg-white p-2 rounded-lg">hour</span>
             </div>
@@ -298,8 +205,8 @@ function AddEventPage() {
               type="file"
               placeholder="Enter image"
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("image", addEventOptions.image)}
-              onChange= {(e)=> setImage(e.target.files[0])}
+              {...register("image", eventOptions.image)}
+              onChange= {(e)=> setImage(e.target.files ? e.target.files[0] : null)}
             />
             <small className="text-red-700">
                 {errors.image && errors.image.message}
@@ -313,7 +220,7 @@ function AddEventPage() {
               placeholder="Enter description"
               rows={5}
               className="block form-input border rounded-lg w-full p-2.5"
-              {...register("description", addEventOptions.description)}
+              {...register("description", eventOptions.description)}
             ></textarea>
             <small className="text-red-700">
                 {errors.description && errors.description.message}
