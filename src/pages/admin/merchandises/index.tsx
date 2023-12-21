@@ -19,6 +19,19 @@ function MerchandiseListPage() {
   const { data: merchList, fetchData: fetchMerchList } = useFetch<Merchandise[]>();
   const { fetchData: fetchDeleteMerchandise } = useFetch<Merchandise>();
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 9;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  let totalPages = 1;
+  let currentMerchs: Merchandise[] = [];
+  if (merchList) {
+    currentMerchs = merchList.slice(startIndex, endIndex);
+    totalPages = Math.ceil(merchList.length / itemsPerPage);
+  }
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
   useEffect(() => {
     fetchMerchList("merchandises?_expand=event", {
       method: "GET",
@@ -72,6 +85,12 @@ function MerchandiseListPage() {
     });
   };
 
+  const handlePageChange = (newPage: number) => {
+    if (merchList) {
+      setCurrentPage(newPage);
+    }
+  };
+
   return (
     <>
       <div className="flex justify-between items-center">
@@ -110,8 +129,7 @@ function MerchandiseListPage() {
             </tr>
           </thead>
           <tbody>
-            {merchList &&
-              merchList.map((merch) => (
+            {currentMerchs?.map((merch) => (
                 <tr key={merch.id} className="text-medium hover:bg-indigo-100">
                   <td>{merch.id}</td>
                   <td>{merch.name}</td>
@@ -163,6 +181,37 @@ function MerchandiseListPage() {
               ))}
           </tbody>
         </table>
+
+        {/* pagination */}
+        <div className="relative overflow-x-auto sm:rounded-lg flex justify-end mt-5 py-2">
+          <div>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="bg-white rounded-lg px-3 py-1 mx-1 shadow-md border"
+            >
+              &lt;
+            </button>
+            {pageNumbers.map((number) => (
+              <button
+                key={number}
+                onClick={() => handlePageChange(number)}
+                className={`rounded-lg px-3 py-1 mx-1 shadow-md border ${
+                  number === currentPage ? "bg-primary text-white" : "bg-white"
+                }`}
+              >
+                {number}
+              </button>
+            ))}
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="bg-white rounded-lg px-3 py-1 mx-1 shadow-md border"
+            >
+              &gt;
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

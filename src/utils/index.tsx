@@ -60,3 +60,12 @@ export const getDiscountPrice = (currentPrice: number, memberNum: number): numbe
       return currentPrice * 0;
   }
 }
+
+export const formatDate = (date: string): string => {
+  let transaction_date = new Date(date);
+  const formatted_transaction_date = transaction_date.toLocaleDateString(
+    "en",
+    { year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit" }
+  );
+  return formatted_transaction_date;
+};

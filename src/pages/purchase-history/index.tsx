@@ -2,9 +2,9 @@ import Button from "@/components/Button/Button";
 import useFetch from "@/hooks/useFetch";
 import { RootState } from "@/stores/store";
 import { Purchase } from "@/types";
-import { formatRupiah, getDiscountByMembership } from "@/utils";
+import { formatDate, formatRupiah, getDiscountByMembership } from "@/utils";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { MdOutlinePayments } from "react-icons/md";
 import { useSelector } from "react-redux";
 
@@ -13,8 +13,21 @@ function PurchaseHistoryPage() {
   const { data: purchases, fetchData: fetchPurchases } = useFetch<Purchase[]>();
   const loggedUser = useSelector((state: RootState) => state.user.data);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 5;
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  let totalPages = 1;
+  let currentPurchases: Purchase[] = [];
+  if (purchases) {
+    currentPurchases = purchases.slice(startIndex, endIndex);
+    totalPages = Math.ceil(purchases.length / itemsPerPage);
+  }
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
   useEffect(() => {
-    fetchPurchases("purchases?_expand=event", {
+    fetchPurchases("purchases?_sort=purchaseDate&_order=desc&_expand=event", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -22,22 +35,30 @@ function PurchaseHistoryPage() {
     });
   }, []);
 
+  const handlePageChange = (newPage: number) => {
+    if (purchases) {
+      setCurrentPage(newPage);
+    }
+  };
+
   return (
     <div>
       <h1 className="text-[36px] text-dark font-semibold text-center">
         Purchase History
       </h1>
-      {purchases &&
-        purchases.map((purchase) => (
+      {currentPurchases?.map((purchase) => (
           <div
             className="border my-5 rounded-xl shadow-md border-secondary bg-white p-5"
             key={purchase.id}
           >
-            <div className="text-white text-center flex justify-end mb-2">
+            <div className="text-center flex justify-between mb-2">
+              <div>
+                <p>{formatDate(purchase.purchaseDate)}</p>
+              </div>
               {purchase.isPaid ? (
-                <div className="rounded-lg bg-primary px-5 py-1">Paid</div>
+                <div className="rounded-lg bg-primary px-5 py-1 text-white">Paid</div>
               ) : (
-                <div className="rounded-lg bg-grey px-5 py-1">
+                <div className="rounded-lg bg-grey px-5 py-1 text-white">
                   Unpaid
                 </div>
               )}
@@ -92,7 +113,39 @@ function PurchaseHistoryPage() {
             </div>
           </div>
         ))}
+        
+        {/* pagination */}
+      <div className="relative overflow-x-auto sm:rounded-lg flex justify-center py-2 mt-5">
+          <div>
+            <button
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+              className="bg-white rounded-lg px-3 py-1 mx-1 shadow-md border"
+            >
+              &lt;
+            </button>
+            {pageNumbers.map((number) => (
+              <button
+                key={number}
+                onClick={() => handlePageChange(number)}
+                className={`rounded-lg px-3 py-1 mx-1 shadow-md border ${
+                  number === currentPage ? "bg-primary text-white" : "bg-white"
+                }`}
+              >
+                {number}
+              </button>
+            ))}
+            <button
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+              className="bg-white rounded-lg px-3 py-1 mx-1 shadow-md border"
+            >
+              &gt;
+            </button>
+          </div>
+        </div>
     </div>
+    
   );
 }
 
