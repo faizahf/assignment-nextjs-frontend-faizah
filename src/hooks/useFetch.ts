@@ -14,7 +14,7 @@ const useFetch = <T,>(): UseFetchResponse<T> => {
     const [data, setData] = useState<T | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null | unknown>(null);
-    const url = 'http://localhost:9000'
+    const url = 'https://assignment-nextjs-frontend-faizah-json-server.vercel.app'
 
     const fetchData = async (
         endpoint: string,
