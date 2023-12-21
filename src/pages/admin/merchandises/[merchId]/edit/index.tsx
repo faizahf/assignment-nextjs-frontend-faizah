@@ -85,7 +85,6 @@ function EditMerchandisePage() {
             className="block form-input border rounded-lg w-full p-2.5 bg-white"
             {...register("eventId", merchandiseOptions.eventId)}
           >
-            <option value={0}>Choose event</option>
             {eventList && eventList.map((event) => (
               <option key={event.id} value={event.id}>{event.name}</option>
             ))}
