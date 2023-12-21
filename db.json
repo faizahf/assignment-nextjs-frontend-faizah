@@ -79,33 +79,8 @@
     },
     {
       "userId": 7,
-      "eventId": 2,
-      "id": 2
-    },
-    {
-      "userId": 7,
       "eventId": 1,
       "id": 3
-    },
-    {
-      "userId": 7,
-      "eventId": 3,
-      "id": 4
-    },
-    {
-      "userId": 7,
-      "eventId": 6,
-      "id": 5
-    },
-    {
-      "userId": 7,
-      "eventId": 4,
-      "id": 6
-    },
-    {
-      "userId": 7,
-      "eventId": 13,
-      "id": 7
     },
     {
       "userId": 6,
@@ -257,6 +232,22 @@
         "booked": 0
       },
       "id": 13
+    },
+    {
+      "name": "newww",
+      "category": 2,
+      "location": "Jalan Pasar Baru",
+      "date": "2023-12-22",
+      "startTime": "14:35",
+      "duration": 1,
+      "price": 100000,
+      "image": "http://res.cloudinary.com/dpwb7bjzp/image/upload/v1703090128/xbw9br8gp1ga2t6l0zkx.png",
+      "description": "jljhsda",
+      "capacity": {
+        "total": 10,
+        "booked": 0
+      },
+      "id": 14
     }
   ],
   "merchandises": [

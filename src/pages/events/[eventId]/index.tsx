@@ -1,17 +1,23 @@
 import Button from "@/components/Button/Button";
 import useFetch from "@/hooks/useFetch";
-import { Event } from "@/types";
+import { RootState } from "@/stores/store";
+import { Bookmark, Event } from "@/types";
 import { formatRupiah } from "@/utils";
-import Image from "next/image";
 import { useRouter } from "next/router";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FaClock } from "react-icons/fa";
 import { FaLocationDot } from "react-icons/fa6";
+import { useSelector } from "react-redux";
 
 function EventDetail() {
   const router = useRouter();
+  const loggedUser = useSelector((state: RootState) => state.user.data);
   const id = router.query.eventId;
   const { data: event, fetchData: fetchEvent } = useFetch<Event>();
+  const [isBookmarked, setIsBookmarked] = useState(false);
+  const { data: bookmarkedEvent, fetchData: fetchBookmarked } = useFetch<Bookmark[]>();
+  const { data: deletedBookmark, fetchData: deleteEvent } = useFetch<Event>();
+  const { data: addedBookmark, fetchData: postBookmarkEvent } = useFetch<Event>();
 
   useEffect(() => {
     fetchEvent(`events/${id}`, {
@@ -21,6 +27,53 @@ function EventDetail() {
       },
     });
   }, [id]);
+
+  const checkBookmarkStatus = async () => {
+    fetchBookmarked(`bookmarks?userId=${loggedUser.id}&eventId=${id}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+    }
+
+  useEffect(() => {
+    checkBookmarkStatus();
+  }, [event, loggedUser.id, deletedBookmark, addedBookmark]);
+
+  useEffect(() => {
+    if (bookmarkedEvent) {
+        setIsBookmarked(bookmarkedEvent.length > 0);
+    }
+  }, [bookmarkedEvent])
+
+  const handleBookmarkToggle = async () => {
+    try {
+      if (isBookmarked && bookmarkedEvent) {
+        // Unbookmark
+        deleteEvent(`bookmarks/${bookmarkedEvent[0].id}`, {
+          method: "DELETE",
+        });
+      } else {
+        // Bookmark
+        postBookmarkEvent("bookmarks", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            userId: loggedUser?.id,
+            eventId: id,
+          }),
+        });
+      }
+
+      // Update bookmark state
+      setIsBookmarked(!isBookmarked);
+    } catch (error) {
+      console.error("Error toggling bookmark:", error);
+    }
+  };
 
   return (
     <>
@@ -44,9 +97,9 @@ function EventDetail() {
                 <div className="card w-96 bg-white translate-x-1/3">
                   <div className="card-body items-center text-center">
                     <h2 className="card-title">{formatRupiah(Number(event.price))}</h2>
-                    <p>{event.date}, {event.time}</p>
+                    <p>{event.date}, {event.startTime}</p>
                     <div className="card-actions justify-end">
-                      <button className="btn">Bookmark</button>
+                      <Button styles="btn" value={`${isBookmarked ? 'Unbookmark' : 'Bookmark'}`} funcOnClick={handleBookmarkToggle} />
                       <button className="btn btn-primary bg-primary" onClick={() => router.push(`${event.id}/order`)}>Book Now</button>
                     </div>
                   </div>
@@ -64,7 +117,7 @@ function EventDetail() {
                 <h2 className="text-2xl font-semibold mb-5">Time</h2>
                 <span className="flex gap-5">
                   <FaClock color="#7848F4" /> 
-                  {event.date}, {event.time}
+                  {event.date}, {event.startTime}
                 </span>
               </div>
               <div>
