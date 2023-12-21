@@ -66,8 +66,6 @@ function Signup() {
   };
   const handleError = (errors: any) => {};
 
-  const watchConfirmPassword = watch("confirmPassword", "password");
-
   return (
     <>
       <div className="h-screen w-full">
@@ -161,11 +159,9 @@ function Signup() {
                       signupOptions.confirmPassword
                     )}
                   />
-                  {watchConfirmPassword &&
                     <small className="text-red-700">
                       {errors.confirmPassword && errors.confirmPassword.message}
                     </small>
-                  }
                 </div>
 
                 <button

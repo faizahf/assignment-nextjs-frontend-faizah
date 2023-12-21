@@ -47,9 +47,6 @@ function Navbar() {
                         </div>
                         <ul className="py-2" aria-labelledby="user-menu-button">
                             <li>
-                                <Link href="/top-up" className={`block px-4 py-2 text-sm text-white hover:bg-primary ${router.asPath === "/top-up" ? 'bg-primary' : 'bg-transparent'}`}>Top Up Balance</Link>
-                            </li>
-                            <li>
                                 <Link href="/profile" className={`block px-4 py-2 text-sm text-white hover:bg-primary ${router.asPath === "/profile" ? 'bg-primary' : 'bg-transparent'}`}>Profile</Link>
                             </li>
                             <li>

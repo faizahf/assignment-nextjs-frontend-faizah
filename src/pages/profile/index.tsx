@@ -88,7 +88,7 @@ function ProfilePage() {
                 </span>
                 <p className="text-sm">{loggedUser?.email}</p>
                 <div></div>
-                <button className="btn btn-primary bg-primary my-2">
+                <button className="btn btn-primary bg-primary my-2" onClick={() => router.push('/profile/edit')}>
                   Edit Profile
                 </button>
               </div>

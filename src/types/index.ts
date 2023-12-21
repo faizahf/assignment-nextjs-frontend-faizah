@@ -114,3 +114,16 @@ export type TopupForm = {
   source: number;
   amount: number;
 }
+
+export type ProfileForm = {
+  name: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export type Profile = {
+  name: string;
+  email: string;
+  password: string;
+}

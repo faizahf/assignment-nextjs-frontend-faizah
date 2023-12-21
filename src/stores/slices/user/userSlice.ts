@@ -1,4 +1,4 @@
-import { User } from '@/types';
+import { Profile, User } from '@/types';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
@@ -39,11 +39,18 @@ const userSlice = createSlice({
       if (state.data) {
         state.data.membership = action.payload;
       }
+    },
+    updateProfile: (state, action: PayloadAction<Profile>) => {
+      if (state.data) {
+        state.data.name = action.payload.name;
+        state.data.email = action.payload.email;
+        state.data.password = action.payload.password;
+      }
     }
   },
 });
 
-export const { saveUser, removeUser, updateBalance, updateMembership } = userSlice.actions;
+export const { saveUser, removeUser, updateBalance, updateMembership, updateProfile } = userSlice.actions;
 
 const persistConfig = {
   key: 'root',
