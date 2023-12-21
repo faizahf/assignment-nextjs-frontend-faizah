@@ -10,13 +10,13 @@ export const getCategoryName = (categoryNum: number): string => {
     case 1:
       return 'Art';
     case 2:
-      return 'Writing'
-    case 3:
       return 'Cooking';
+    case 3:
+      return 'Development';
     case 4:
       return 'Technology';
     case 5:
-      return 'Development';
+      return 'Writing'
     default:
       return 'Category is undefined';
   }

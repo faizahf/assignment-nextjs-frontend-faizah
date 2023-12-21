@@ -91,23 +91,47 @@ function UserListPage() {
     }
   };
 
+  const handleSort = (column: string, order: string) => {
+    fetchUserList(`users?_sort=${column}&_order=${order}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
   return (
     <>
-      <div className="flex gap-5 justify-between items-center overflow-x-auto">
+      <div className="flex gap-5 justify-between items-center">
         <h1 className="text-2xl font-semibold">Users</h1>
         <div className="flex gap-3">
-          <div className="flex items-center relative justify-end">
+        <div className="flex flex-col md:flex-row items-center relative justify-end">
+          <div>
+            <div className="dropdown">
+              <div tabIndex={0} role="button" className="btn bg-white m-1 border border-secondary shadow-md">Sort By</div>
+              <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-white shadow-md border-secondary rounded-box w-52">
+                <li><a onClick={() => handleSort('name', 'asc')}>Name - Asc</a></li>
+                <li><a onClick={() => handleSort('name', 'desc')}>Name - Desc</a></li>
+                <li><a onClick={() => handleSort('email', 'asc')}>Email - Asc</a></li>
+                <li><a onClick={() => handleSort('email', 'desc')}>Email - Desc</a></li>
+                <li><a onClick={() => handleSort('balance', 'asc')}>Balance - Asc</a></li>
+                <li><a onClick={() => handleSort('balance', 'desc')}>Balance - Desc</a></li>
+              </ul>
+            </div>
+          </div>
+          <div>
             <input
               type="text"
               value={nameSearch}
               placeholder="Search by name"
-              className="border p-3 rounded-lg text-sm"
+              className="border border-secondary shadow-md p-3 rounded-lg text-sm"
               onChange={filterUserByName}
             />
-            <span className="absolute text-[#A7A3FF] mr-3">
+            <span className="absolute text-[#A7A3FF] right-3 top-5">
               <IoIosSearch />
             </span>
           </div>
+        </div>
         </div>
       </div>
       <div className="overflow-x-auto my-5 rounded-lg">

@@ -26,17 +26,15 @@ function BookmarksPage() {
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
   
   useEffect(() => {
-    if (loggedUser) {
-      fetchBookmarkedEventsByUser(
-        `bookmarks?userId=${loggedUser.id}&_expand=event`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-    }
+    fetchBookmarkedEventsByUser(
+      `bookmarks?userId=${loggedUser?.id}&_expand=event`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
   }, [])
 
   const handlePageChange = (newPage: number) => {

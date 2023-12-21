@@ -91,26 +91,48 @@ function MerchandiseListPage() {
     }
   };
 
+  const handleSort = (column: string, order: string) => {
+    fetchMerchList(`merchandises?_sort=${column}&_order=${order}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  }
+
   return (
     <>
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-semibold">Merchandises</h1>
-        <div className="flex gap-3">
-          <Button
-            styles={"btn-primary bg-dark"}
-            value={"Add New Merchandise"}
-            funcOnClick={() => router.push("merchandises/add")}
-          />
 
-          <div className="flex items-center relative justify-end">
+        <div className="flex flex-col md:flex-row items-center relative justify-end">
+            <Button
+              styles={"btn-primary bg-dark"}
+              value={"Add New Merchandise"}
+              funcOnClick={() => router.push("merchandises/add")}
+            />
+          <div>
+            <div className="dropdown">
+              <div tabIndex={0} role="button" className="btn bg-white m-1 border border-secondary shadow-md">Sort By</div>
+              <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 bg-white shadow-md border-secondary rounded-box w-52">
+                <li><a onClick={() => handleSort('eventId', 'asc')}>Event - Asc</a></li>
+                <li><a onClick={() => handleSort('eventId', 'desc')}>Event - Desc</a></li>
+                <li><a onClick={() => handleSort('price', 'asc')}>Price - Asc</a></li>
+                <li><a onClick={() => handleSort('price', 'desc')}>Price - Desc</a></li>
+                <li><a onClick={() => handleSort('stock', 'asc')}>Stock - Asc</a></li>
+                <li><a onClick={() => handleSort('stock', 'desc')}>Stock - Desc</a></li>
+              </ul>
+            </div>
+          </div>
+          <div>
             <input
               type="text"
               value={nameSearch}
               placeholder="Search by name"
-              className="border p-3 rounded-lg text-sm"
+              className="border border-secondary shadow-md p-3 rounded-lg text-sm"
               onChange={filterMerchByName}
             />
-            <span className="absolute text-[#A7A3FF] mr-3">
+            <span className="absolute text-[#A7A3FF] right-3 top-5">
               <IoIosSearch />
             </span>
           </div>

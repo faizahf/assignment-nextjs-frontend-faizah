@@ -56,7 +56,7 @@
       "password": "11111111",
       "role": "user",
       "membership": 2,
-      "balance": 148000,
+      "balance": 448000,
       "image": "",
       "id": 7
     }
@@ -672,7 +672,7 @@
       "eventId": "2",
       "purchaseDate": "2023-12-21T14:55:51.175Z",
       "merchandises": [],
-      "isPaid": false,
+      "isPaid": true,
       "paymentTotal": 170000,
       "id": 32
     },
