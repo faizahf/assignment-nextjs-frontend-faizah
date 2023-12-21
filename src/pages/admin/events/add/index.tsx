@@ -227,7 +227,7 @@ function AddEventPage() {
             </small>
           </div>
           <div className="col-span-6">
-            <input type="submit" className="btn btn-primary bg-navy-blue my-5 w-full"/>
+            <input type="submit" className="btn btn-primary bg-dark my-5 w-full"/>
           </div>
         </div>
       </form>

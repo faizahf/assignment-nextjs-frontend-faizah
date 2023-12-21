@@ -78,7 +78,7 @@ function MerchandiseListPage() {
         <h1 className="text-2xl font-semibold">Merchandises</h1>
         <div className="flex gap-3">
           <Button
-            styles={"btn-primary bg-navy-blue"}
+            styles={"btn-primary bg-dark"}
             value={"Add New Merchandise"}
             funcOnClick={() => router.push("merchandises/add")}
           />

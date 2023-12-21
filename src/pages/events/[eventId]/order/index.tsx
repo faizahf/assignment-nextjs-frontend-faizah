@@ -244,7 +244,7 @@ function EventDetail() {
 
               <div className="flex justify-end">
                 <button
-                  className="btn btn-primary bg-navy-blue w-1/3"
+                  className="btn btn-primary bg-dark w-1/3"
                   onClick={handleCheckout}
                 >
                   Checkout

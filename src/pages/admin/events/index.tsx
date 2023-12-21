@@ -78,7 +78,7 @@ function EventListPage() {
         <h1 className="text-2xl font-semibold">Events</h1>
         <div className="flex gap-3">
           <Button
-            styles={"btn-primary bg-navy-blue"}
+            styles={"btn-primary bg-dark"}
             value={"Add New Event"}
             funcOnClick={() => router.push("events/add")}
           />
